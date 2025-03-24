@@ -10,7 +10,7 @@ from sqlalchemy.ext.asyncio import (
 )
 from sqlalchemy.orm import Session, sessionmaker
 
-from app.infra.db.config import DbConfig
+from mg_api.infra.db.config import DbConfig
 
 
 class DbProv(Provider):
