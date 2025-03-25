@@ -19,7 +19,7 @@ async def main():
     await sio_client.connect(url='http://localhost:8000', socketio_path='ws')
     await sleep(1)
     await sio_client.emit(event='msg', data={'text': 'hello'})
-    await sleep(5)
+    await sleep(3)
     await sio_client.disconnect()
 
 asyncio.run(main())

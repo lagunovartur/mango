@@ -12,9 +12,6 @@ class MSG(BaseModel):
 
 @sio.event
 async def connect(sid, environ, auth):
-    sess_data = await sio.get_session(sid)
-    app_cntr: AsyncContainer = environ['asgi.scope']['app'].state.dishka_container
-    sess_data['dishka_container'] = await app_cntr(context={'sid': sid}, scope=Scope.SESSION).__aenter__()
     print(f"Connected {sid}")
 
 
@@ -26,6 +23,4 @@ async def msg(sid, data: MSG, db_sess: FromDishka[AsyncSession]):
 
 @sio.event
 async def disconnect(sid):
-    sess_cntr: AsyncContainer = (await sio.get_session(sid))['dishka_container']
-    await sess_cntr.close()
     print(f"Disconnected {sid}")
