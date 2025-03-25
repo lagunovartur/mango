@@ -1,7 +1,7 @@
 import asyncio
 import uvicorn
 
-from mg_api.core.api_factory import api_factory
+from mg_api.core.api import api_factory
 from mg_api.core.config import ApiConfig
 from mg_api.core.ioc import ioc_builder
 
@@ -15,8 +15,8 @@ async def make_api_server(ioc):
         app=app,
         host="0.0.0.0",
         port=config.PORT,
-        ssl_keyfile="./ssl/private.key",
-        ssl_certfile="./ssl/public.crt",
+        # ssl_keyfile="./ssl/private.key",
+        # ssl_certfile="./ssl/public.crt",
     )
 
     server = uvicorn.Server(uv_config)
