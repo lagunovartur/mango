@@ -16,6 +16,7 @@ class AsyncServer(socketio.AsyncServer):
         sess_cntr = sess_data.get('dishka_container')
         async with sess_cntr(scope=Scope.REQUEST) as req_cntr:
             REQ_CNTR.set(req_cntr)
+            print(event)
             res = await super()._trigger_event(event, namespace, *args)
 
         await self._di_close_sess(event, sess_data)

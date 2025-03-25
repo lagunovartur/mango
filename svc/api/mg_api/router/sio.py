@@ -11,7 +11,7 @@ class MSG(BaseModel):
 
 
 @sio.event
-async def connect(sid, environ, auth):
+async def connect(sid, environ):
     print(f"Connected {sid}")
 
 
