@@ -20,6 +20,25 @@ async def create(
 ):
     return await svc.create(dto)
 
+@router.get(
+    "/{chat_id}",
+    response_model=d.Chat,
+)
+async def get(
+    chat_id: UUID,
+    svc: Depends[ChatSvc],
+):
+    return await svc.get(chat_id)
+
+@router.get(
+    "/",
+    response_model=ListSlice[d.Chat],
+)
+async def list(
+    svc: Depends[ChatSvc],
+):
+    pass
+
 
 @router.put(
     "/",
@@ -32,25 +51,6 @@ async def update(
     pass
     # return await ia(dto)
 
-
-@router.get(
-    "/{chat_id}",
-    response_model=d.Chat,
-)
-async def get(
-    chat_id: UUID,
-    svc: Depends[ChatSvc],
-):
-    pass
-
-@router.get(
-    "/",
-    response_model=ListSlice[d.Chat],
-)
-async def list(
-    svc: Depends[ChatSvc],
-):
-    pass
 
 @router.delete(
     "/{chat_id}",
