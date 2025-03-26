@@ -7,7 +7,6 @@ import mg_api.dto as d
 @define
 class RegisterIA:
     _user: r.User
-
     _db_sess: AsyncSession
 
     async def __call__(self, dto: d.NewUser) -> m.User:

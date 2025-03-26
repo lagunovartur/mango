@@ -48,7 +48,7 @@ class DbProv(Provider):
     def async_session_factory(
         self, engine: AsyncEngine
     ) -> async_sessionmaker[AsyncSession]:
-        return async_sessionmaker(bind=engine, class_=AsyncSession)
+        return async_sessionmaker(bind=engine, class_=AsyncSession, expire_on_commit=False)
 
     @provide(scope=Scope.REQUEST)
     def session(self, sess_factory: sessionmaker[Session]) -> Iterator[Session]:
