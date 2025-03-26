@@ -99,7 +99,7 @@ class JwtSetter(IJwtSetter):
             httponly=True,
             samesite="lax",
             expires=exp,
-            secure=True,
+            secure=False,
         )
         self._response.set_cookie(
             key=RefreshToken.COOKIE_KEY,
