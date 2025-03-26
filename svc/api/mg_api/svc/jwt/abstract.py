@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 from typing import TypeVar
-
+from uuid import UUID
 from mg_api.svc.jwt.schemas import JwtPair, RefreshToken, AccessToken, JwtToken
 
 T = TypeVar("T", bound=JwtToken)
@@ -8,7 +8,7 @@ T = TypeVar("T", bound=JwtToken)
 
 class IJwtSvc(ABC):
     @abstractmethod
-    def token_pair(self, sub: int, **kwargs) -> JwtPair:
+    def token_pair(self, sub: UUID, **kwargs) -> JwtPair:
         pass
 
     @abstractmethod
