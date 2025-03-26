@@ -30,5 +30,5 @@ COPY ./ .
 
 ENV PYTHONPATH=.
 
-CMD ["bash", "-c", "python ./fr_api/main.py"]
+CMD ["bash", "-c", "python ./mg_api/main.py"]
 
