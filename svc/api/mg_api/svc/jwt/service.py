@@ -1,9 +1,10 @@
 from typing import Type, TypeVar
 from uuid import uuid4
+
 import jwt
 from attr import define
-from uuid import UUID
 from fastapi import Response
+
 from mg_api.errors.http import ExcHttp
 from mg_api.svc.jwt.abstract import IJwtSvc, IJwtSetter
 from mg_api.svc.jwt.config import JwtConfig
@@ -19,7 +20,7 @@ class JwtSvc(IJwtSvc):
     _config: JwtConfig
     # _iss: str = 'http://localhost'
 
-    def token_pair(self, sub: UUID, **kwargs) -> JwtPair:
+    def token_pair(self, sub: int, **kwargs) -> JwtPair:
 
         kwargs['sub'] = sub
         kwargs['sid'] = kwargs.get('sid') or uuid4()

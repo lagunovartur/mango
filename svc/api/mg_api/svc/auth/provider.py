@@ -2,6 +2,7 @@ from fastapi import Request
 from dishka import Provider, from_context, Scope, provide_all, provide
 from passlib.context import CryptContext
 
+from mg_api.svc.auth.ia.login import LoginIA
 from mg_api.svc.auth.ia.register import RegisterIA
 from mg_api.svc.auth.pwd_crypt import PwdCrypt, IPwdCrypt
 
@@ -18,6 +19,7 @@ class AuthProv(Provider):
     request = from_context(provides=Request, scope=Scope.REQUEST)
 
     pd = provide_all(
-        RegisterIA
+        RegisterIA,
+        LoginIA,
     )
 

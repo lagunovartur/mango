@@ -10,6 +10,7 @@ _now = lambda: dt.datetime.now(tz=dt.timezone.utc)
 
 
 class JwtPayload(BaseModel):
+
     jti: UUID = Field(description='jwt token identifier', default_factory=uuid4)
     iat: Timestamp = Field(
         default_factory=_now,
@@ -19,10 +20,8 @@ class JwtPayload(BaseModel):
     knd: str = Field(description='вид токена refresh или access')
     exp: Timestamp = Field(description='expired действует до unix time', default_factory=_now)
     iss: str = Field(default='http://localhost', description='issuer издатель')
+    sub: int = Field(description='subject идентификатор пользователя')
 
-    sub: UUID = Field(description='subject идентификатор пользователя')
-    sid: UUID = Field(description='идентификатор сессии', default_factory=uuid4)
-    cid: int = Field(description='идентификатор клиента')
     ttl: int = Field(description="Сколько минут живет токен", default=15, exclude=True)
 
     def model_post_init(self, __context):
