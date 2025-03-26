@@ -11,6 +11,12 @@ def _validator(value: str) -> str:
         raise ValueError("Phone number must consist of 11 digits")
     return value
 
+def is_phone(value: str) -> bool:
+    try:
+        _validator(value)
+        return True
+    except ValueError:
+        return False
 
 Phone = Annotated[
     str,
