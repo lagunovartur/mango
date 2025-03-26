@@ -20,7 +20,7 @@ class JwtPayload(BaseModel):
         description="expired действует до unix time", default_factory=_now
     )
     iss: str = Field(default="http://localhost", description="issuer издатель")
-    sub: int = Field(description="subject идентификатор пользователя")
+    sub: UUID = Field(description="subject идентификатор пользователя")
 
     ttl: int = Field(description="Сколько минут живет токен", default=15, exclude=True)
 

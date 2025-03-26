@@ -1,17 +1,24 @@
+from typing import TYPE_CHECKING
+
 from sqlalchemy import String
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from .base import Base
-from .mixins.serial_pk import SerialPk
+from .mixins import UuidPk
 from .mixins.timestamp import Timestamp
+from .user_chat import user_chat
+
+if TYPE_CHECKING:
+    from .chat import Chat
 
 
-class User(Base, SerialPk, Timestamp):
+class User(Base, UuidPk, Timestamp):
     first_name: Mapped[str] = mapped_column(String(50), nullable=False)
     last_name: Mapped[str | None] = mapped_column(String(50), nullable=True)
     password: Mapped[str] = mapped_column(String(60), nullable=True)
     email: Mapped[str] = mapped_column(String(255), unique=True, nullable=False)
     phone: Mapped[str] = mapped_column(String(11), unique=True, nullable=False)
+    chats: Mapped["Chat"] = relationship("Chat", secondary=user_chat, back_populates="users")
 
 
 class CurrentUser(User):

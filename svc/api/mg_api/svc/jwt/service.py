@@ -1,5 +1,5 @@
 from typing import Type, TypeVar
-from uuid import uuid4
+from uuid import uuid4, UUID
 
 import jwt
 from attr import define
@@ -25,9 +25,8 @@ class JwtSvc(IJwtSvc):
     _config: JwtConfig
     # _iss: str = 'http://localhost'
 
-    def token_pair(self, sub: int, **kwargs) -> JwtPair:
+    def token_pair(self, sub: UUID, **kwargs) -> JwtPair:
         kwargs["sub"] = sub
-        kwargs["sid"] = kwargs.get("sid") or uuid4()
 
         return JwtPair(
             access_token=self._token(AccessToken, **kwargs),
