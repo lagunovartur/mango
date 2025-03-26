@@ -10,6 +10,7 @@ from .user_chat import user_chat
 
 if TYPE_CHECKING:
     from .chat import Chat
+    from .message import Message
 
 
 class User(Base, UuidPk, Timestamp):
@@ -19,6 +20,9 @@ class User(Base, UuidPk, Timestamp):
     email: Mapped[str] = mapped_column(String(255), unique=True, nullable=False)
     phone: Mapped[str] = mapped_column(String(11), unique=True, nullable=False)
     chats: Mapped["Chat"] = relationship("Chat", secondary=user_chat, back_populates="users")
+    messages: Mapped["Message"] = relationship(
+        back_populates="sender", lazy="noload"
+    )
 
 
 class CurrentUser(User):
