@@ -1,16 +1,16 @@
 from attrs import define
+from sqlalchemy.ext.asyncio import AsyncSession
+import mg_api.repo as r
+import mg_api.infra.db.models as m
+import mg_api.dto as d
 
+@define
+class RegisterIA:
+    _user: r.User
 
-# @define
-# class RegisterIA:
-#     _user: r.User
-#     _agency: r.Agency
-#
-#     _db_sess: AsyncSession
-#
-#     async def __call__(self, dto: d.Register) -> None:
-#         agency = await self._agency.create(**dto.agency.model_dump())
-#         user = await self._user.create(**dto.user.model_dump())
-#         user.agency = agency
-#         user.role = m.RoleEnum.director
-#         await self._db_sess.commit()
+    _db_sess: AsyncSession
+
+    async def __call__(self, dto: d.NewUser) -> m.User:
+        user = await self._user.add(**dto.user.model_dump())
+        await self._db_sess.commit()
+        return user

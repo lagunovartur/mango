@@ -1,3 +1,3 @@
-from .http import HttpErr
-from .http import ErrNotFound
+from .http import ExcHttp
+from .http import ExcNotFound, ExcDuplicateKey
 

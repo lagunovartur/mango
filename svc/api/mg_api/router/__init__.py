@@ -6,7 +6,7 @@ from . import sio
 
 def router_factory():
     router = APIRouter(route_class=DishkaRoute, prefix="/api")
-    router.include_router(auth.router, tags=["auth"])
+    router.include_router(auth.router)
 
     # router.include_router(auth.router, tags=["auth"])
     # router.include_router(auth_sess.router, tags=["auth_sessions"])
