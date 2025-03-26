@@ -1,6 +1,7 @@
 import mg_api.infra.db.models as m
 from mg_api.utils.pydantic.base_model import BaseModel
 from mg_api.utils.pydantic.validators import UUID
+from pydantic import Field
 from .user import UserBase
 from .chat import ChatBase
 from ..utils.crud.types_ import BaseLP
@@ -20,4 +21,4 @@ class Message(MessageBase):
     chat: ChatBase
 
 class MessageLP(BaseLP):
-    chat_id__in: list[UUID] | None = None
+    chat_id__in: list[UUID] = Field(min_length=1)
