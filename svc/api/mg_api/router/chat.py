@@ -1,10 +1,12 @@
+from typing import Annotated
+
 from dishka import FromDishka as Depends
 from dishka.integrations.fastapi import DishkaRoute
-from fastapi import APIRouter
+from fastapi import APIRouter, Query
 
 import mg_api.dto as d
 from mg_api.svc.chat.service import ChatSvc
-from mg_api.utils.crud.types_ import ListSlice
+from mg_api.utils.crud.types_ import ListSlice, BaseLP
 from uuid import UUID
 
 router = APIRouter(route_class=DishkaRoute, prefix="/chat", tags=["chat"])
@@ -35,9 +37,10 @@ async def get(
     response_model=ListSlice[d.Chat],
 )
 async def list(
+    params: Annotated[BaseLP, Query()],
     svc: Depends[ChatSvc],
 ):
-    pass
+    return await svc.get_list(params)
 
 
 @router.put(

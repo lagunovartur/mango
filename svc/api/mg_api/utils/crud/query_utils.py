@@ -1,17 +1,14 @@
 import operator
-from dataclasses import asdict
-from typing import Any
 
 import sqlalchemy as sa
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from mg_api.utils.crud.types_ import PageParams, ListSlice, BaseLP
+from mg_api.utils.crud.types_ import PageParams, ListSlice
 
 
 class QueryUtils:
     @staticmethod
-    def parse_filters(model, params: BaseLP):
-        params = asdict(params) if isinstance(params, BaseLP) else params
+    def parse_filters(model, params: dict):
 
         exclude = ["limit", "offset", "search"]
         filters = {

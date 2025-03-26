@@ -6,13 +6,11 @@ from mg_api.infra.db.repo import Repo
 from mg_api.utils.pydantic.base_model import BaseModel
 
 
-@dataclass
-class PageParams:
+class PageParams(BaseModel):
     offset: int = 0
     limit: int = 10
 
 
-@dataclass
 class BaseLP(PageParams):
     search: Optional[str] = None
 
