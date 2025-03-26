@@ -19,6 +19,9 @@ aiohttp = "^3.11.14"
 pydantic-socketio = "^0.1.1"
 
 
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.11.2"
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
