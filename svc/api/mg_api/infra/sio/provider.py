@@ -8,7 +8,6 @@ from mg_api.infra.sio.sid_registry import SidRegistry
 
 
 class SioProv(Provider):
-
     @provide(scope=Scope.APP)
     def server(self) -> AsyncServer:
         return sio

@@ -2,7 +2,6 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class DbConfig(BaseSettings):
-
     USER: str
     PASS: str
     HOST: str
@@ -22,11 +21,7 @@ class DbConfig(BaseSettings):
     @property
     def SYNC_URL(self):
         return (
-            f"postgresql://{self.USER}:"
-            f"{self.PASS}@{self.HOST}:{self.PORT}/{self.NAME}"
+            f"postgresql://{self.USER}:{self.PASS}@{self.HOST}:{self.PORT}/{self.NAME}"
         )
 
-    model_config = SettingsConfigDict(
-        case_sensitive = True,
-        env_prefix = 'DB_'
-    )
+    model_config = SettingsConfigDict(case_sensitive=True, env_prefix="DB_")

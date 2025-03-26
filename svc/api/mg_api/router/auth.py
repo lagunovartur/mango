@@ -3,6 +3,7 @@ from fastapi import APIRouter
 
 router = APIRouter(route_class=DishkaRoute, prefix="/auth", tags=["auth"])
 
-@router.post(path='/login')
+
+@router.post(path="/login")
 async def login():
     pass

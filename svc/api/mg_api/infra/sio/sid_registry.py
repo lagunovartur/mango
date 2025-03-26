@@ -6,7 +6,6 @@ from attrs import define, field
 
 @define
 class SidRegistry:
-
     _user_sid: dict = field(factory=lambda: defaultdict(list), init=False)
 
     def __setattr__(self, key: str, value: str) -> None:
