@@ -1,3 +1,3 @@
 from .base import Base
 from .user import User
-from .chat import Chatd
+from .chat import Chat
