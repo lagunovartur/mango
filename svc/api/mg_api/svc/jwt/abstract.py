@@ -1,7 +1,8 @@
 from abc import ABC, abstractmethod
 from typing import TypeVar
 from uuid import UUID
-from fr_lib.interfaces.jwt.schemas import JwtPair, AccessToken, RefreshToken, JwtToken
+
+from mg_api.svc.jwt.schemas import JwtPair, RefreshToken, AccessToken, JwtToken
 
 T = TypeVar('T', bound=JwtToken)
 
