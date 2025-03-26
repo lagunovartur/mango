@@ -6,13 +6,13 @@ from attrs import define, field
 
 @define
 class SidRegistry:
-    _user_sid: dict = field(factory=lambda: defaultdict(list), init=False)
+    _user_sid: dict = field(factory=lambda: defaultdict(set), init=False)
 
     def __setattr__(self, key: str, value: str) -> None:
-        self._user_sid[key].append(value)
+        self._user_sid[key].add(value)
 
     def __getattr__(self, key: str) -> str:
         return self._user_sid[key]
 
-    def __iter__(self) -> Iterator[Tuple[str, list[str]]]:
+    def __iter__(self) -> Iterator[Tuple[str, set[str]]]:
         return iter(self._user_sid.items())
