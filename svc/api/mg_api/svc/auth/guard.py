@@ -40,3 +40,5 @@ class AuthGuard:
     def _is_protected(cls, path: str) -> bool:
         return not any(re.search(pattern, path) for pattern in cls.UNPROTECTED)
 
+    def __hash__(self):
+        return id(self)
