@@ -3,7 +3,7 @@ from dishka.integrations.fastapi import setup_dishka
 from fastapi import FastAPI
 
 from mg_api.core.config import ApiConfig
-from mg_api.core.sio import sio_app
+from mg_api.infra.sio import sio_app
 from mg_api.router import router_factory
 
 

@@ -1,6 +1,6 @@
 import pydantic_socketio as socketio
 
-from mg_api.core.sio.di import AsyncServer
+from mg_api.infra.sio.di import AsyncServer
 
 sio = AsyncServer(
     async_mode="asgi",
