@@ -75,6 +75,10 @@ class CrudSvc(ICrudSvc, Generic[C, R, U, RP, LS]):
     async def get_list(self, params) -> ListSlice[R]:
         return await self._list_svc(params)
 
+    async def delete(self, pk) -> None:
+        await self._repo.delete(pk)
+        await self._db_sess.commit()
+
     async def _before_flush(self, obj, dto: C | U, cur_obj=None) -> None:
         pass
 

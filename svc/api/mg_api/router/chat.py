@@ -55,8 +55,9 @@ async def update(
     "/{chat_id}",
 )
 async def delete(
+    chat_id: UUID,
     svc: Depends[ChatSvc],
 ):
-    pass
+    return await svc.delete(chat_id)
 
 

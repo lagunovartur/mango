@@ -109,12 +109,14 @@ class Repo(Generic[Model]):
     # DELETE
 
     @overload
-    async def delete(self, pk: PK) -> Model: ...
+    async def delete(self, pk: PK) -> None: ...
 
     @overload
-    async def delete(self, pk: Model) -> Model: ...
+    async def delete(self, pk: Model) -> None: ...
 
-    async def delete(self, pk: Model | PK) -> Model:
-        obj = pk if isinstance(pk, self.model) else await self.get(pk)
-        await self._db_sess.delete(obj)
-        return obj
+    async def delete(self, pk: Model | PK) -> None:
+        if isinstance(pk, self.model):
+            await self._db_sess.delete(pk)
+        else:
+            stmt = sa.delete(self.model).filter_by(id=pk)
+            await self._db_sess.execute(stmt)
