@@ -1,4 +1,4 @@
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, List
 from sqlalchemy import String
 from sqlalchemy.orm import relationship, Mapped, mapped_column
 
@@ -15,7 +15,7 @@ if TYPE_CHECKING:
 class Chat(Base, UuidPk, Timestamp):
 
     name: Mapped[str] = mapped_column(String(50), nullable=False)
-    users: Mapped["User"] = relationship("User", secondary=user_chat, back_populates="chats")
-    messages: Mapped["Message"] = relationship(
+    users: Mapped[List["User"]] = relationship("User", secondary=user_chat, back_populates="chats")
+    messages: Mapped[List["Message"]] = relationship(
         back_populates="chat", lazy="noload"
     )

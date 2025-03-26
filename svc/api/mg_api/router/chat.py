@@ -48,8 +48,7 @@ async def update(
     dto: d.EditChat,
     svc: Depends[ChatSvc],
 ):
-    pass
-    # return await ia(dto)
+    return await svc.update(dto)
 
 
 @router.delete(
