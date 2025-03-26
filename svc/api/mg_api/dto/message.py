@@ -3,6 +3,8 @@ from mg_api.utils.pydantic.base_model import BaseModel
 from mg_api.utils.pydantic.validators import UUID
 from .user import UserBase
 from .chat import ChatBase
+from ..utils.crud.types_ import BaseLP
+
 
 class BaseMessage(BaseModel):
     _model = m.Message
@@ -17,3 +19,5 @@ class Message(MessageBase):
     sender: UserBase
     chat: ChatBase
 
+class MessageLP(BaseLP):
+    chat_id__in: list[UUID]

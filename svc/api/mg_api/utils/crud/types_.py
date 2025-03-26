@@ -1,4 +1,3 @@
-from dataclasses import dataclass
 from typing import TypeVar, Optional, Generic, Sequence
 
 from mg_api.infra.db.models import Base
