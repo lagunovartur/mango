@@ -4,7 +4,6 @@ from abc import ABC, abstractmethod
 
 
 class IPwdCrypt(ABC):
-
     @abstractmethod
     def hash(self, secret: str) -> str:
         pass

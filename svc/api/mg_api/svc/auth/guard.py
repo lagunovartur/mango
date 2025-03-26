@@ -35,7 +35,6 @@ class AuthGuard:
 
         request.state.access_token = access_token
 
-
     @classmethod
     def _is_protected(cls, path: str) -> bool:
         return not any(re.search(pattern, path) for pattern in cls.UNPROTECTED)

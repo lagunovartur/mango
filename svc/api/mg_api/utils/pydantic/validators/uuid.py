@@ -8,5 +8,3 @@ UUID = Annotated[
     BeforeValidator(lambda v: uuid.UUID(v) if isinstance(v, str) else v),
     PlainSerializer(lambda v: str(v)),
 ]
-
-

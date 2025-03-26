@@ -3,45 +3,42 @@ from typing import Type
 
 
 class JsonExample(dict):
-
     def __init__(self, cls: Type):
         super().__init__()
-        self['content'] = {
-            'application/json': {
-                'examples': {
+        self["content"] = {
+            "application/json": {
+                "examples": {
                     cls.__name__: {
-                        'value':{
-                            'type': cls.__name__,
+                        "value": {
+                            "type": cls.__name__,
                             **{
-                                key: value  for key, value in cls.__dict__.items()
-                                if not (key.startswith('__') and key.endswith('__'))
-                            }
+                                key: value
+                                for key, value in cls.__dict__.items()
+                                if not (key.startswith("__") and key.endswith("__"))
+                            },
                         }
                     }
                 }
             }
         }
 
-
     @property
     def _examples(self):
-        return self['content']['application/json']['examples']
+        return self["content"]["application/json"]["examples"]
 
     @_examples.setter
     def _examples(self, value):
-        self['content']['application/json']['examples'] = value
+        self["content"]["application/json"]["examples"] = value
 
     def __or__(self, other):
         if isinstance(other, self.__class__):
             new = deepcopy(self)
-            new._examples = (
-                    self._examples | other._examples
-            )
+            new._examples = self._examples | other._examples
             return new
         return super().__or__(other)
 
-class ExcHttp(Exception):
 
+class ExcHttp(Exception):
     status_code = 500
     message: str = None
     type: str = None
@@ -51,10 +48,13 @@ class ExcHttp(Exception):
         status_code: int | None = None,
         message: str = None,
         headers: dict[str, str] | None = None,
-        **detail
+        **detail,
     ) -> None:
         self.status_code = status_code or self.status_code
-        self.payload = detail | {'message': message or self.message, 'type': self.__class__.__name__}
+        self.payload = detail | {
+            "message": message or self.message,
+            "type": self.__class__.__name__,
+        }
         self.headers = headers
 
     def __str__(self) -> str:
@@ -62,7 +62,9 @@ class ExcHttp(Exception):
 
     def __repr__(self) -> str:
         class_name = self.__class__.__name__
-        return f"{class_name}(status_code={self.status_code!r}, detail={self.payload!r})"
+        return (
+            f"{class_name}(status_code={self.status_code!r}, detail={self.payload!r})"
+        )
 
     @classmethod
     def example(cls) -> JsonExample:
