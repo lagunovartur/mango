@@ -21,7 +21,7 @@ async def api_factory(container: AsyncContainer) -> FastAPI:
         #     Depends(auth_guard),
         # ],
     )
-    app.mount("/", app=sio_app)
+    app.mount("/ws", app=sio_app)
     app.state.sio = sio_app.engineio_server
 
     setup_dishka(container, app)

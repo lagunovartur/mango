@@ -11,6 +11,6 @@ class RegisterIA:
     _db_sess: AsyncSession
 
     async def __call__(self, dto: d.NewUser) -> m.User:
-        user = await self._user.add(**dto.user.model_dump())
+        user = await self._user.add(**dto.model_dump())
         await self._db_sess.commit()
         return user

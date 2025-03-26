@@ -19,23 +19,25 @@ class DbProv(Provider):
         return DbConfig()
 
     @provide(scope=Scope.APP)
-    def sync_engine(self, settings: DbConfig) -> Engine:
+    def sync_engine(self, config: DbConfig) -> Engine:
         return create_engine(
-            settings.SYNC_URL,
-            echo=settings.ECHO,
+            config.SYNC_URL,
+            echo=config.ECHO,
             future=True,
-            pool_size=settings.POOL_SIZE,
-            max_overflow=settings.MAX_OVERFLOW,
+            pool_size=config.POOL_SIZE,
+            max_overflow=config.MAX_OVERFLOW,
         )
 
     @provide(scope=Scope.APP)
-    def async_engine(self, settings: DbConfig) -> AsyncEngine:
+    def async_engine(self, config: DbConfig) -> AsyncEngine:
+        print(config.model_dump(mode='json'))
+
         return create_async_engine(
-            settings.ASYNC_URL,
-            echo=settings.ECHO,
+            config.ASYNC_URL,
+            echo=config.ECHO,
             future=True,
-            pool_size=settings.POOL_SIZE,
-            max_overflow=settings.MAX_OVERFLOW,
+            pool_size=config.POOL_SIZE,
+            max_overflow=config.MAX_OVERFLOW,
         )
 
     @provide(scope=Scope.APP)
