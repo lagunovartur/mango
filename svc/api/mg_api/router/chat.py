@@ -13,7 +13,7 @@ router = APIRouter(route_class=DishkaRoute, prefix="/chat", tags=["chat"])
 
 
 @router.post(
-    "/",
+    "",
     response_model=d.Chat
 )
 async def create(
@@ -33,7 +33,7 @@ async def get(
     return await svc.get(chat_id)
 
 @router.get(
-    "/",
+    "",
     response_model=ListSlice[d.Chat],
 )
 async def list(
@@ -44,7 +44,7 @@ async def list(
 
 
 @router.put(
-    "/",
+    "",
     response_model=d.Chat,
 )
 async def update(
