@@ -1,36 +1,51 @@
 from abc import ABC, abstractmethod
-from typing import Generic, TypeVar, Any
-from sqlalchemy.sql.selectable import Select
+from typing import Generic, Sequence
+
 from attrs import define, field
+from sqlalchemy.sql.selectable import Select
 
-from mg_api.utils.crud.types_ import R, M, LP, ListSlice, BaseLP
+from mg_api.utils.crud.types_ import R, M, LP, ListSlice, PageParams
 
-S = TypeVar('S', bound=Select)
 
 @define
 class IListSvc(ABC,Generic[R, M, LP]):
 
-    _params: BaseLP = field(init=False)
-
+    _stmt: Select = field(init=False)
 
     @abstractmethod
     async def __call__(self, params: LP) -> ListSlice[R]:
         pass
 
     @abstractmethod
-    async def _apply_order(self, stmt: S) -> S:
+    async def _set_stmt(self) -> None:
         pass
 
     @abstractmethod
-    async def _apply_filters(self, stmt: S) -> S:
+    async def _execute(self) -> Sequence[M]:
         pass
 
     @abstractmethod
-    async def _apply_search(self, stmt: S) -> S:
+    async def _apply_order(self, order) -> None:
+        pass
+
+    @abstractmethod
+    async def _apply_filters(self, filters) -> None:
+        pass
+
+    @abstractmethod
+    async def _apply_search(self, search: str) -> None:
         pass
 
     @abstractmethod
     async def _load_opts(self):
+        pass
+
+    @abstractmethod
+    async def _count(self) -> int:
+        pass
+
+    @abstractmethod
+    async def _paginate(self, pagination: PageParams) -> None:
         pass
 
 

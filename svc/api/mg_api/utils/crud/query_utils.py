@@ -8,14 +8,7 @@ from mg_api.utils.crud.types_ import PageParams, ListSlice
 
 class QueryUtils:
     @staticmethod
-    def parse_filters(model, params: dict):
-
-        exclude = ["limit", "offset", "search"]
-        filters = {
-            key: value
-            for key, value in params.items()
-            if key not in exclude and value is not None
-        }
+    def parse_filters(model, filters: dict):
 
         operators = {
             "gt": operator.gt,

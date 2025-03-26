@@ -20,4 +20,4 @@ class Message(MessageBase):
     chat: ChatBase
 
 class MessageLP(BaseLP):
-    chat_id__in: list[UUID]
+    chat_id__in: list[UUID] | None = None
