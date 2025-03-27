@@ -4,7 +4,7 @@ from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from mg_api.core.config import ApiConfig
 from mg_api.errors.handlers import add_exc_handlers
-from mg_api.infra.sio import sio_app
+from mg_api.infra.sio.app import sio_app
 from mg_api.router import router_factory
 from mg_api.svc.auth.guard import AuthGuard
 

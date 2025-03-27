@@ -1,8 +1,11 @@
 from contextvars import ContextVar
+from typing import NewType
 
 import pydantic_socketio as socketio
 from dishka import AsyncContainer, Scope
 from dishka.integrations.base import wrap_injection
+
+from mg_api.svc.jwt.schemas import AccessToken
 
 REQ_CNTR: ContextVar[AsyncContainer] = ContextVar("REQ_CNTR")
 
@@ -32,7 +35,7 @@ class AsyncServer(socketio.AsyncServer):
         sid, environ = args[0], args[1]
         app_cntr = environ["asgi.scope"]["app"].state.dishka_container
         sess_data["dishka_container"] = await app_cntr(
-            context={"sid": sid}, scope=Scope.SESSION
+            context={CurSid: sid}, scope=Scope.SESSION
         ).__aenter__()
 
     async def _di_close_sess(self, event, sess_data) -> None:
@@ -46,3 +49,7 @@ def inject(func):
     return wrap_injection(
         func=func, container_getter=lambda p, _: REQ_CNTR.get(), is_async=True
     )
+
+
+CurSid = NewType("CurSid", str)
+AccessTokenWS = NewType("AccessTokenWS", AccessToken)

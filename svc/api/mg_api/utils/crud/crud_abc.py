@@ -1,6 +1,5 @@
 from abc import abstractmethod, ABC
 from typing import Any, Generic
-
 from mg_api.utils.crud.types_ import C, R, U, RP, LP, ListSlice
 from mg_api.utils.crud.list_svc import LS
 

@@ -1,15 +1,15 @@
-from dishka import Provider, provide, Scope, provide_all
+from dishka import Provider, provide, Scope, from_context
 from socketio import ASGIApp
 
-from mg_api.infra.sio import sio_app
-from mg_api.infra.sio.app import sio
+from mg_api.infra.sio.app import sio, sio_app
 from mg_api.infra.sio.connect_ws import ConnectWS, IConnectWS
-from mg_api.infra.sio.di import AsyncServer
+from mg_api.infra.sio.di import AsyncServer, CurSid, AccessTokenWS
 from mg_api.infra.sio.sid_registry import SidRegistry
 
 
 class SioProv(Provider):
 
+    cur_sid = from_context(provides=CurSid, scope=Scope.SESSION)
 
     @provide(scope=Scope.APP)
     def server(self) -> AsyncServer:
@@ -21,7 +21,11 @@ class SioProv(Provider):
 
     sid_registry = provide(SidRegistry, scope=Scope.APP)
 
-    connect_ws = provide(ConnectWS, scope=Scope.APP, provides=IConnectWS)
+    @provide(scope=Scope.SESSION)
+    async def access_token(self, sid: CurSid, sio: AsyncServer) -> AccessTokenWS:
+        sess_data = await sio.get_session(sid)
+        return sess_data["access_token"]
 
+    connect_ws = provide(ConnectWS, scope=Scope.APP, provides=IConnectWS)
 
 
