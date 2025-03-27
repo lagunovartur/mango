@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import './Login.css'
 
 
-export const Login = () => {
+export const Login = ({setIsLogged}) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
@@ -27,6 +27,7 @@ export const Login = () => {
                 // Если сервер вернул ошибку
                 throw new Error('Login failed!');
             }
+            setIsLogged(true);
 
             const json = await resp.json();
             console.log('Login successful:', json);
@@ -35,6 +36,8 @@ export const Login = () => {
             console.error('Error:', error);
         }
     };
+
+
 
 
     return (

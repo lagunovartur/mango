@@ -4,33 +4,41 @@ import './Chat.css'
 
 import {Message} from './Message';
 
-const socket = io(process.env.REACT_APP_API_URL, {
-    path: process.env.REACT_APP_WS_PATH,
-});
 
-export const Chat = () => {
+export const Chat = ({isLogged}) => {
 
-    const [isConnected, setIsConnected] = useState(socket.connected);
+    const [socket, setSocket] = useState(null);
+    const [isConnected, setIsConnected] = useState(false);
     const [messages, setMessages] = useState([]);
     const [message, setMessage] = useState('');
 
     useEffect(() => {
-        socket.on('connect', () => {
-            setIsConnected(socket.connected);
-        });
+        if (isLogged && !socket) {
+            const socket = io(process.env.REACT_APP_API_URL, {
+                path: process.env.REACT_APP_WS_PATH,
+            });
+            setSocket(socket);
+            console.log('Logged in!!!!!!!!!!!!!!');
 
-        socket.on('disconnect', () => {
-            setIsConnected(socket.connected);
-        });
+            socket.on('connect', () => {
+                setIsConnected(socket.connected);
+            });
 
-        socket.on('join', (data) => {
-            setMessages((prevMessages) => [...prevMessages, {...data, type: 'join'}]);
-        });
+            socket.on('disconnect', () => {
+                setIsConnected(socket.connected);
+            });
 
-        socket.on('chat', (data) => {
-            setMessages((prevMessages) => [...prevMessages, {...data, type: 'chat'}]);
-        });
-    }, []);
+            socket.on('join', (data) => {
+                setMessages((prevMessages) => [...prevMessages, {...data, type: 'join'}]);
+            });
+
+            socket.on('chat', (data) => {
+                setMessages((prevMessages) => [...prevMessages, {...data, type: 'chat'}]);
+            });
+
+        }
+
+    }, [isLogged, socket]);
 
     return (
         <>
