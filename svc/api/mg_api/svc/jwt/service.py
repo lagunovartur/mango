@@ -96,29 +96,28 @@ class JwtSetter(IJwtSetter):
         self._response.set_cookie(
             key=AccessToken.COOKIE_KEY,
             value=f"{token_pair.access_token.encoded}",
-            httponly=False,
-            samesite="none",
+            httponly=True,
+            samesite="lax",
             expires=exp,
-            secure=False,
+            secure=True,
         )
         self._response.set_cookie(
             key=RefreshToken.COOKIE_KEY,
             value=f"{token_pair.refresh_token.encoded}",
-            httponly=False,
+            httponly=True,
             path="/api/auth/refresh",
-            samesite="none",
+            samesite="strict",
             expires=exp,
-            secure=False,
+            secure=True,
         )
         self._response.set_cookie(
             key=RefreshToken.COOKIE_KEY,
             value=f"{token_pair.refresh_token.encoded}",
-            httponly=False,
-            domain='*',
+            httponly=True,
             path="/api/auth/logout",
-            samesite="none",
+            samesite="strict",
             expires=exp,
-            secure=False,
+            secure=True,
         )
 
     def unset(self) -> None:

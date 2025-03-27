@@ -15,8 +15,8 @@ async def make_api_server(ioc):
         app=app,
         host="0.0.0.0",
         port=config.PORT,
-        # ssl_keyfile="./ssl/private.key",
-        # ssl_certfile="./ssl/public.crt",
+        ssl_keyfile="./ssl/private.key",
+        ssl_certfile="./ssl/public.crt",
     )
 
     server = uvicorn.Server(uv_config)
