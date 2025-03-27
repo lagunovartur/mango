@@ -1,7 +1,7 @@
 from dishka import AsyncContainer
 from dishka.integrations.fastapi import setup_dishka
 from fastapi import FastAPI, Depends
-
+from fastapi.middleware.cors import CORSMiddleware
 from mg_api.core.config import ApiConfig
 from mg_api.infra.sio import sio_app
 from mg_api.router import router_factory
@@ -16,12 +16,20 @@ async def api_factory(container: AsyncContainer) -> FastAPI:
         title=config.TITLE,
         debug=config.DEBUG,
         openapi_url="/api/openapi.json",
-        cors_allowed_origins=["*"],
         # lifespan=lifespan,
         dependencies=[
             Depends(auth_guard),
         ],
     )
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=["http://localhost:3000", "http://localhost:8000"],
+        allow_headers=["*"],
+        allow_methods=["*"],
+        allow_credentials=True,
+    )
+
+
     app.mount("/ws", app=sio_app)
     app.state.sio = sio_app.engineio_server
 
