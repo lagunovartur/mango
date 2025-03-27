@@ -38,7 +38,28 @@ export const Login = ({setIsLogged}) => {
     };
 
 
+    const  onLogout = async () => {
+        try {
+            const resp = await fetch(process.env.REACT_APP_API_URL + '/auth/logout', {
+                method: 'POST',
+                credentials: "include",
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
 
+            if (!resp.ok) {
+                throw new Error('Logout failed!');
+            }
+            setIsLogged(false);
+
+            const json = await resp.json();
+            console.log('Logout successful:', json);
+
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    };
 
     return (
         <>
@@ -52,6 +73,7 @@ export const Login = ({setIsLogged}) => {
                     <input type={'text'} id='password' onChange={(e) => setPassword(e.target.value)}></input>
                 </div>
                 <button className="btn btn-primary" onClick={onLogin}>Login</button>
+                <button className="btn btn-primary" onClick={onLogout}>Logout</button>
             </div>
         </>
     );

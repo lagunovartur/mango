@@ -13,6 +13,7 @@ export const Chat = ({isLogged}) => {
     const [message, setMessage] = useState('');
 
     useEffect(() => {
+
         if (isLogged && !socket) {
             const socket = io(process.env.REACT_APP_API_URL, {
                 path: process.env.REACT_APP_WS_PATH,
@@ -36,6 +37,12 @@ export const Chat = ({isLogged}) => {
                 setMessages((prevMessages) => [...prevMessages, {...data, type: 'chat'}]);
             });
 
+        }
+
+        if (!isLogged && socket) {
+            socket.disconnect();
+            setSocket(null);  // Обнуляем сокет
+            console.log('Socket disconnected due to logout');
         }
 
     }, [isLogged, socket]);
