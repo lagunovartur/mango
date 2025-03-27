@@ -36,7 +36,7 @@ class SendMessageIA:
 
     async def _send_message(self, sid: str, message: Message) -> None:
         try:
-            await self._sio.emit('new_message', message.model_dump(), to=sid)
+            await self._sio.emit('srv_new_message', message.model_dump(), to=sid)
             print(f"Message sent to {sid}")
         except Exception as e:
             print(f"Failed to send message to {sid}: {e}")

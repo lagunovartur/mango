@@ -4,6 +4,11 @@ label{
 
 .container{
     display: flex;
-    gap: 50px;
+    flex-wrap: wrap;
+    gap: 30px;
     padding: 20px;
+}
+
+.btn{
+    width: 100px;
 }

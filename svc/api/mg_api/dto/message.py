@@ -21,7 +21,8 @@ class NewMessage(BaseMessage):
     chat_id: UUID
 
 
-class Message(MessageBase):
+class Message(BaseMessage):
+    id: UUID
     sender: UserBase
     chat: ChatBase
 

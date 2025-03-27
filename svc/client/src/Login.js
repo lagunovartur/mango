@@ -64,16 +64,10 @@ export const Login = ({setIsLogged}) => {
     return (
         <>
             <div className="container">
-                <div className="form-group">
-                    <label htmlFor='username'>login</label>
-                    <input type={'text'} id="username" onChange={(e) => setUsername(e.target.value)}></input>
-                </div>
-                <div className="">
-                    <label htmlFor='password'>password</label>
-                    <input type={'text'} id='password' onChange={(e) => setPassword(e.target.value)}></input>
-                </div>
-                <button className="btn btn-primary" onClick={onLogin}>Login</button>
-                <button className="btn btn-primary" onClick={onLogout}>Logout</button>
+                <input type={'text'} id="username" placeholder={"username"} onChange={(e) => setUsername(e.target.value)}></input>
+                <input type={'password'} id='password' placeholder={"password"} onChange={(e) => setPassword(e.target.value)}></input>
+                <button className="btn" onClick={onLogin}>Login</button>
+                <button className="btn" onClick={onLogout}>Logout</button>
             </div>
         </>
     );

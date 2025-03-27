@@ -1,6 +1,7 @@
 .chat {
     display: flex;
     flex-direction: column;
+    gap: 30px;
 }
 
 .dialog {
@@ -11,4 +12,8 @@
     margin-top: 15px;
     display: flex;
     flex-direction: column;
+}
+
+.send-btn{
+    height: 50px;
 }

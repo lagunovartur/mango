@@ -37,13 +37,14 @@ export const Chat = ({isLogged}) => {
                 setIsConnected(newSocket.connected);
             });
 
-            newSocket.on('join', (data) => {
+            newSocket.on('srv_new_message', (data) => {
+                console.log(data);
                 setMessages((prevMessages) => [...prevMessages, {...data, type: 'join'}]);
             });
 
-            newSocket.on('chat', (data) => {
-                setMessages((prevMessages) => [...prevMessages, {...data, type: 'chat'}]);
-            });
+            // newSocket.on('srv_new_message', (data) => {
+            //     setMessages((prevMessages) => [...prevMessages, {...data, type: 'chat'}]);
+            // });
 
         }
 
@@ -57,54 +58,49 @@ export const Chat = ({isLogged}) => {
 
     return (
         <>
-            <div className="chat">
+            <div className="chat" style={{ pointerEvents: isConnected ? 'auto' : 'none', opacity: isConnected ? 1 : 0.5 }}>
                 <h2>status: {isConnected ? 'connected' : 'disconnected'}</h2>
 
-                {/* Условный рендеринг для отображения чата только при подключении */}
-                {isConnected ? (
-                    <>
-                        <input
-                            type={'text'}
-                            id='chatId'
-                            onChange={(event) => {
-                                const value = event.target.value.trim();
-                                setChatId(value);
-                            }}
-                            placeholder={'chat_id'}
-                        />
+                <input
+                    type={'text'}
+                    id='chatId'
+                    onChange={(event) => {
+                        const value = event.target.value.trim();
+                        setChatId(value);
+                    }}
+                    placeholder={'chat_id'}
+                />
 
-                        <div className="dialog">
-                            {messages.map((message, index) => (
-                                <Message message={message} key={index}/>
-                            ))}
-                        </div>
+                <div className="dialog">
+                    {messages.map((message, index) => (
+                        <Message message={message} key={index}/>
+                    ))}
+                </div>
 
 
-                        <input
-                            type={'text'}
-                            id='message'
-                            onChange={(event) => {
-                                const value = event.target.value.trim();
-                                setMessage(value);
-                            }}
-                        />
+                <input
+                    type={'text'}
+                    placeholder={'message'}
+                    id='message'
+                    onChange={(event) => {
+                        const value = event.target.value.trim();
+                        setMessage(value);
+                    }}
+                />
 
-                        <button
-                            onClick={() => {
-                                if (message && message.length) {
-                                    socket.emit('send_message', {'text': message, 'chat_id': chatId});
-                                }
-                                const messageBox = document.getElementById('message');
-                                messageBox.value = '';
-                                setMessage('');
-                            }}
-                        >
-                            Send
-                        </button>
-                    </>
-                ) : (
-                    <br></br>
-                )}
+                <button
+                    className='send-btn'
+                    onClick={() => {
+                        if (message && message.length) {
+                            socket.emit('cl_new_message', {'text': message, 'chat_id': chatId});
+                        }
+                        const messageBox = document.getElementById('message');
+                        messageBox.value = '';
+                        setMessage('');
+                    }}
+                >
+                    Send
+                </button>
             </div>
         </>
     );

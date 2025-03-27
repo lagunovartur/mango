@@ -20,7 +20,7 @@ async def connect(sid, environ, connector: Depends[IConnectWS]):
 
 @sio.event
 @inject
-async def send_message(sid, data: NewMessage, ia: Depends[SendMessageIA]):
+async def cl_new_message(sid, data: NewMessage, ia: Depends[SendMessageIA]):
     await ia(data)
 
 
