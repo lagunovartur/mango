@@ -15,16 +15,20 @@ export const Chat = ({isLogged}) => {
     useEffect(() => {
 
         if (isLogged && !socket) {
-            console.log('start ws connecting');
-            const newSocket = io(process.env.REACT_APP_API_URL, {
+            console.log('start ws connecting', process.env.REACT_APP_SERVER_URL, process.env.REACT_APP_WS_PATH,);
+            const newSocket = io(process.env.REACT_APP_SERVER_URL, {
                 path: process.env.REACT_APP_WS_PATH,
+                secure: true,
+                transports: ['websocket'],
+                rejectUnauthorized: false,
             });
-            setSocket(newSocket);
 
+            setSocket(newSocket);
+            newSocket.connect()
+            console.log('end ws connecting');
 
             newSocket.on('connect', () => {
                 setIsConnected(newSocket.connected);
-                console.log('WS Connected!!!!!!!!!!!!!!!!!!');
             });
 
             newSocket.on('disconnect', () => {
@@ -52,36 +56,45 @@ export const Chat = ({isLogged}) => {
     return (
         <>
             <div className="chat">
-
-
                 <h2>status: {isConnected ? 'connected' : 'disconnected'}</h2>
 
-                <div className="dialog">
-                    {messages.map((message, index) => (
-                        <Message message={message} key={index}/>
-                    ))}
-                </div>
-                <input
-                    type={'text'}
-                    id='message'
-                    onChange={(event) => {
-                        const value = event.target.value.trim();
-                        setMessage(value);
-                    }}
-                ></input>
-                <button
-                    onClick={() => {
-                        if (message && message.length) {
-                            socket.emit('chat', message);
-                        }
-                        var messageBox = document.getElementById('message');
-                        messageBox.value = '';
-                        setMessage('');
-                    }}
-                >
-                    Send
-                </button>
+                {/* Условный рендеринг для отображения чата только при подключении */}
+                {isConnected ? (
+                    <>
+                        <div className="dialog">
+                            {messages.map((message, index) => (
+                                <Message message={message} key={index}/>
+                            ))}
+                        </div>
+
+                        <input
+                            type={'text'}
+                            id='message'
+                            onChange={(event) => {
+                                const value = event.target.value.trim();
+                                setMessage(value);
+                            }}
+                        />
+
+                        <button
+                            onClick={() => {
+                                if (message && message.length) {
+                                    socket.emit('chat', message);
+                                }
+                                var messageBox = document.getElementById('message');
+                                messageBox.value = '';
+                                setMessage('');
+                            }}
+                        >
+                            Send
+                        </button>
+                    </>
+                ) : (
+                    <br></br>
+                    // <h3>Please connect to the chat to start sending messages.</h3>
+                )}
             </div>
         </>
     );
+
 };
