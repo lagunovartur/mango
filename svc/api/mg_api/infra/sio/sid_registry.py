@@ -10,11 +10,12 @@ class SidRegistry:
     _user_sid: dict[UUID, set[str]] = field(factory=lambda: defaultdict(set), init=False)
     _sid_user: dict[str, UUID] = field(factory=dict, init=False)
 
-    def __setattr__(self, user_id: UUID, sid: str) -> None:
+
+    def __setitem__(self, user_id: UUID, sid: str) -> None:
         self._user_sid[user_id].add(sid)
         self._sid_user[sid] = user_id
 
-    def __getattr__(self, user_id: UUID) -> set[str]:
+    def __getitem__(self, user_id: UUID) -> set[str]:
         return self._user_sid[user_id]
 
     def __iter__(self) -> Iterator[Tuple[UUID, set[str]]]:

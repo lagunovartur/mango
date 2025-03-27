@@ -21,6 +21,7 @@ export const Chat = ({isLogged}) => {
                 secure: true,
                 transports: ['websocket'],
                 rejectUnauthorized: false,
+                autoConnect: false,
             });
 
             setSocket(newSocket);
