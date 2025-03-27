@@ -1,6 +1,8 @@
 from copy import deepcopy
 from typing import Type
-
+from fastapi import Request
+from fastapi.responses import JSONResponse
+from typing import cast
 
 class JsonExample(dict):
     def __init__(self, cls: Type):
@@ -79,3 +81,13 @@ class ExcNotFound(ExcHttp):
 class ExcDuplicateKey(ExcHttp):
     status_code = 409
     message = "Ключ уже существует"
+
+
+def http_handler(request: Request, exc: Exception) -> JSONResponse:
+    exc = cast(ExcHttp, exc)
+    return JSONResponse(
+        status_code=exc.status_code,
+        content=exc.payload,
+        headers=exc.headers,
+    )
+

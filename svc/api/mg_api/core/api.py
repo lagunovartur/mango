@@ -3,6 +3,7 @@ from dishka.integrations.fastapi import setup_dishka
 from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from mg_api.core.config import ApiConfig
+from mg_api.errors.handlers import add_exc_handlers
 from mg_api.infra.sio import sio_app
 from mg_api.router import router_factory
 from mg_api.svc.auth.guard import AuthGuard
@@ -23,12 +24,15 @@ async def api_factory(container: AsyncContainer) -> FastAPI:
     )
     app.add_middleware(
         CORSMiddleware,
+        # allow_origins=["*"],
         allow_origins=["http://localhost:3000", "http://localhost:8000"],
         allow_headers=["*"],
         allow_methods=["*"],
         allow_credentials=True,
+        expose_headers=["Set-Cookie"],
     )
 
+    add_exc_handlers(app)
 
     app.mount("/ws", app=sio_app)
     app.state.sio = sio_app.engineio_server
