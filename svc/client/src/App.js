@@ -9,7 +9,7 @@ function App() {
         <>
             <div style={{display: 'flex', flexDirection: 'column', padding: '50px', width: '50%'}}>
                 <h1>Socket.io app</h1>
-                <Login setIsLogged={setIsLogged}/>
+                <Login setIsLogged={setIsLogged} isLogged={isLogged} />
                 <Chat isLogged={isLogged}/>
             </div>
         </>

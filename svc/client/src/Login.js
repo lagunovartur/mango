@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import './Login.css'
 
 
-export const Login = ({setIsLogged}) => {
+export const Login = ({setIsLogged, isLogged}) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
@@ -54,7 +54,7 @@ export const Login = ({setIsLogged}) => {
             setIsLogged(false);
 
             const json = await resp.json();
-            console.log('Logout successful:', json);
+            console.log('Logout successful:', isLogged);
 
         } catch (error) {
             console.error('Error:', error);
@@ -64,9 +64,13 @@ export const Login = ({setIsLogged}) => {
     return (
         <>
             <div className="container">
-                <input type={'text'} id="username" placeholder={"username"} onChange={(e) => setUsername(e.target.value)}></input>
-                <input type={'password'} id='password' placeholder={"password"} onChange={(e) => setPassword(e.target.value)}></input>
-                <button className="btn" onClick={onLogin}>Login</button>
+                <div className="blocked" style={{ pointerEvents: !isLogged ? 'auto' : 'none', opacity: !isLogged ? 1 : 0.5 }}>
+                    <input type={'text'} id="username" placeholder={"username"}
+                           onChange={(e) => setUsername(e.target.value)}></input>
+                    <input type={'password'} id='password' placeholder={"password"}
+                           onChange={(e) => setPassword(e.target.value)}></input>
+                    <button className="btn" onClick={onLogin}>Login</button>
+                </div>
                 <button className="btn" onClick={onLogout}>Logout</button>
             </div>
         </>

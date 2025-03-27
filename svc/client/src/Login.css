@@ -9,6 +9,11 @@ label{
     padding: 20px;
 }
 
+.blocked{
+    display: flex;
+    gap: 30px;
+}
+
 .btn{
     width: 100px;
 }
