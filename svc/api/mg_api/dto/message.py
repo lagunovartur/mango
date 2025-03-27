@@ -14,11 +14,17 @@ class BaseMessage(BaseModel):
 
 class MessageBase(BaseMessage):
     id: UUID
+    chat_id: UUID
+
+
+class NewMessage(BaseMessage):
+    chat_id: UUID
 
 
 class Message(MessageBase):
     sender: UserBase
     chat: ChatBase
+
 
 class MessageLP(BaseLP):
     chat_id__in: list[UUID] = Field(min_length=1)

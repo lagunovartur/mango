@@ -1,11 +1,12 @@
 from dishka import FromDishka as Depends
 from pydantic import BaseModel
-from sqlalchemy.ext.asyncio import AsyncSession
 
+from mg_api.dto.message import NewMessage
 from mg_api.infra.sio.app import sio
 from mg_api.infra.sio.connect_ws import IConnectWS
 from mg_api.infra.sio.di import inject
 from mg_api.infra.sio.sid_registry import SidRegistry
+from mg_api.svc.message.ia.send_message import SendMessageIA
 
 
 class MSG(BaseModel):
@@ -20,8 +21,8 @@ async def connect(sid, environ, connector: Depends[IConnectWS]):
 
 @sio.event
 @inject
-async def msg(sid, data: MSG, db_sess: Depends[AsyncSession]):
-    print(f"Received msg {sid} {data} {db_sess}")
+async def send_message(sid, data: NewMessage, ia: Depends[SendMessageIA]):
+    await ia(data)
 
 
 @sio.event
