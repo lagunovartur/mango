@@ -24,7 +24,7 @@ async def api_factory(container: AsyncContainer) -> FastAPI:
     )
     app.add_middleware(
         CORSMiddleware,
-        allow_origins=["*"],
+        allow_origin_regex=r"http://localhost:\d+",
         allow_headers=["*"],
         allow_methods=["*"],
         allow_credentials=True,
