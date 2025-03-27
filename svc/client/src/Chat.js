@@ -15,25 +15,27 @@ export const Chat = ({isLogged}) => {
     useEffect(() => {
 
         if (isLogged && !socket) {
-            const socket = io(process.env.REACT_APP_API_URL, {
+            console.log('start ws connecting');
+            const newSocket = io(process.env.REACT_APP_API_URL, {
                 path: process.env.REACT_APP_WS_PATH,
             });
-            setSocket(socket);
-            console.log('Logged in!!!!!!!!!!!!!!');
+            setSocket(newSocket);
 
-            socket.on('connect', () => {
-                setIsConnected(socket.connected);
+
+            newSocket.on('connect', () => {
+                setIsConnected(newSocket.connected);
+                console.log('WS Connected!!!!!!!!!!!!!!!!!!');
             });
 
-            socket.on('disconnect', () => {
-                setIsConnected(socket.connected);
+            newSocket.on('disconnect', () => {
+                setIsConnected(newSocket.connected);
             });
 
-            socket.on('join', (data) => {
+            newSocket.on('join', (data) => {
                 setMessages((prevMessages) => [...prevMessages, {...data, type: 'join'}]);
             });
 
-            socket.on('chat', (data) => {
+            newSocket.on('chat', (data) => {
                 setMessages((prevMessages) => [...prevMessages, {...data, type: 'chat'}]);
             });
 
