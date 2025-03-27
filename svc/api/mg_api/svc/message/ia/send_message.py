@@ -1,7 +1,7 @@
 from asyncio.taskgroups import TaskGroup
 
 import sqlalchemy.orm as orm
-from sqlalchemy.ext.asyncio import AsyncSession
+from attrs import define
 
 from mg_api import repo as r
 from mg_api.dto.message import NewMessage, Message
@@ -10,17 +10,16 @@ from mg_api.infra.sio.sid_registry import SidRegistry
 from mg_api.svc.message.service import MessageSvc
 
 
+@define
 class SendMessageIA:
 
     _sio: AsyncServer
     _crud: MessageSvc
     _sid_registry: SidRegistry
-    _db_sess: AsyncSession
     _chat_repo: r.Chat
 
     async def __call__(self, dto: NewMessage) -> None:
-        message = await self._crud.create(**dto.model_dump())
-        await self._db_sess.commit()
+        message = await self._crud.create(dto)
         chat = await self._chat_repo.get(dto.chat_id, (orm.selectinload(self._chat_repo.model.users),))
 
         sids = (

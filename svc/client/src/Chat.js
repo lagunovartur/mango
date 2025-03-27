@@ -8,6 +8,7 @@ import {Message} from './Message';
 export const Chat = ({isLogged}) => {
 
     const [socket, setSocket] = useState(null);
+    const [chatId, setChatId] = useState('');
     const [isConnected, setIsConnected] = useState(false);
     const [messages, setMessages] = useState([]);
     const [message, setMessage] = useState('');
@@ -62,11 +63,22 @@ export const Chat = ({isLogged}) => {
                 {/* Условный рендеринг для отображения чата только при подключении */}
                 {isConnected ? (
                     <>
+                        <input
+                            type={'text'}
+                            id='chatId'
+                            onChange={(event) => {
+                                const value = event.target.value.trim();
+                                setChatId(value);
+                            }}
+                            placeholder={'chat_id'}
+                        />
+
                         <div className="dialog">
                             {messages.map((message, index) => (
                                 <Message message={message} key={index}/>
                             ))}
                         </div>
+
 
                         <input
                             type={'text'}
@@ -80,9 +92,9 @@ export const Chat = ({isLogged}) => {
                         <button
                             onClick={() => {
                                 if (message && message.length) {
-                                    socket.emit('chat', message);
+                                    socket.emit('send_message', {'text': message, 'chat_id': chatId});
                                 }
-                                var messageBox = document.getElementById('message');
+                                const messageBox = document.getElementById('message');
                                 messageBox.value = '';
                                 setMessage('');
                             }}
@@ -92,7 +104,6 @@ export const Chat = ({isLogged}) => {
                     </>
                 ) : (
                     <br></br>
-                    // <h3>Please connect to the chat to start sending messages.</h3>
                 )}
             </div>
         </>
