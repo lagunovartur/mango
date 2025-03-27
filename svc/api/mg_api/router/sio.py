@@ -5,7 +5,6 @@ from mg_api.dto.message import NewMessage
 from mg_api.infra.sio.app import sio
 from mg_api.infra.sio.connect_ws import IConnectWS
 from mg_api.infra.sio.di import inject
-from mg_api.infra.sio.sid_registry import SidRegistry
 from mg_api.svc.message.ia.send_message import SendMessageIA
 
 
@@ -26,7 +25,5 @@ async def send_message(sid, data: NewMessage, ia: Depends[SendMessageIA]):
 
 
 @sio.event
-@inject
-async def disconnect(sid, sid_registry: Depends[SidRegistry]):
-    sid_registry.remove(sid)
-    print(f"Disconnected {sid}")
+async def disconnect(sid):
+    pass
