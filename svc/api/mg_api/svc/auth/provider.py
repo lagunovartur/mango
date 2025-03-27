@@ -4,6 +4,7 @@ from passlib.context import CryptContext
 
 from mg_api.svc.auth.guard import AuthGuard
 from mg_api.svc.auth.ia.login import LoginIA
+from mg_api.svc.auth.ia.logout import LogoutIA
 from mg_api.svc.auth.ia.register import RegisterIA
 from mg_api.svc.auth.pwd_crypt import PwdCrypt, IPwdCrypt
 from mg_api.svc.jwt.schemas import AccessToken
@@ -33,4 +34,5 @@ class AuthProv(Provider):
     pd = provide_all(
         RegisterIA,
         LoginIA,
+        LogoutIA
     )
