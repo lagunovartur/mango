@@ -96,27 +96,27 @@ class JwtSetter(IJwtSetter):
         self._response.set_cookie(
             key=AccessToken.COOKIE_KEY,
             value=f"{token_pair.access_token.encoded}",
-            httponly=True,
-            samesite="lax",
+            httponly=False,
+            samesite="none",
             expires=exp,
             secure=False,
         )
         self._response.set_cookie(
             key=RefreshToken.COOKIE_KEY,
             value=f"{token_pair.refresh_token.encoded}",
-            httponly=True,
+            httponly=False,
             path="/api/auth/refresh",
-            samesite="strict",
+            samesite="none",
             expires=exp,
             secure=False,
         )
         self._response.set_cookie(
             key=RefreshToken.COOKIE_KEY,
             value=f"{token_pair.refresh_token.encoded}",
-            httponly=True,
+            httponly=False,
             domain='*',
             path="/api/auth/logout",
-            samesite="strict",
+            samesite="none",
             expires=exp,
             secure=False,
         )
