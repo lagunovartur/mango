@@ -1,0 +1,14 @@
+.chat {
+    display: flex;
+    flex-direction: column;
+}
+
+.dialog {
+    height: 500px;
+    overflow-y: scroll;
+    border: solid black 1px;
+    padding: 10px;
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+}

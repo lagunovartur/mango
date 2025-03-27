@@ -1,0 +1,9 @@
+label{
+    margin-right: 10px;
+}
+
+.container{
+    display: flex;
+    gap: 50px;
+    padding: 20px;
+}

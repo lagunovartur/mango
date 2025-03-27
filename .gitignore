@@ -145,11 +145,8 @@ sonarqube
 /zk-txn-logs/
 
 **/ssl/*
-!**/ssl/dev/
 
 
-**/static/*
-!**/static/images/.gitkeep
-
+/git_ignored
 
 /volumes

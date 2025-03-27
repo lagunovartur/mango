@@ -24,9 +24,9 @@ class LoginIA:
 
     async def _authenticate(self, dto: d.Login) -> m.User:
         if is_phone(dto.username):
-            user = await self._user.one(phone=dto.username)
+            user = await self._user.one_or_none(phone=dto.username)
         else:
-            user = await self._user.one(email=dto.username)
+            user = await self._user.one_or_none(email=dto.username)
 
         if not user:
             raise ExcInvalidCreds()
