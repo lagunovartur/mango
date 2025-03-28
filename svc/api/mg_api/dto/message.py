@@ -27,5 +27,10 @@ class Message(BaseMessage):
     chat: ChatBase
 
 
+class ReadFilter(BaseModel):
+    chat_id: UUID
+    id__in: list[UUID] = []
+
+
 class MessageLP(BaseLP):
     chat_id__in: list[UUID] = Field(min_length=1)

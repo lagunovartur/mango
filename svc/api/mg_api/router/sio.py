@@ -1,8 +1,7 @@
 from dishka import FromDishka as Depends
 from pydantic import BaseModel
 
-from mg_api.dto.general import IdIn
-from mg_api.dto.message import NewMessage
+from mg_api.dto.message import NewMessage, ReadFilter
 from mg_api.infra.sio.app import sio
 from mg_api.infra.sio.connect_ws import IConnectWS
 from mg_api.infra.sio.di import inject
@@ -25,7 +24,7 @@ async def cl_new_message(sid, data: NewMessage, ia: Depends[SendMessageIA]):
     await ia(data)
 
 @sio.event
-async def cl_read_messages(sid, data: IdIn):
+async def cl_read_messages(sid, data: ReadFilter):
     pass
 
 

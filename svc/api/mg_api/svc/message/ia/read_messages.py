@@ -1,10 +1,14 @@
 from attrs import define
 
-from mg_api.infra.sio.di import AsyncServer
-from mg_api.infra.sio.sid_registry import SidRegistry
+from mg_api.dto.message import ReadFilter
 
 
 @define
 class ReadMessagesIA:
-    _sio: AsyncServer
-    _sid_registry: SidRegistry
+
+    async def __call__(self, dto: ReadFilter) -> None:
+        pass
+
+
+
+
