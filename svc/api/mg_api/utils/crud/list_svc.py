@@ -46,15 +46,15 @@ class ListSvc(IListSvc, Generic[R, M, LP]):
         objects = res.scalars().all()
         return objects
 
-    async def _apply_order(self, order):
+    async def _apply_order(self, order) -> None:
         if attr := getattr(self._M, "created_at", None):
             self._stmt = self._stmt.order_by(desc(attr))
 
-    async def _apply_filters(self, filters):
+    async def _apply_filters(self, filters) -> None:
         filters = QueryUtils.parse_filters(self._M, filters)
         self._stmt = self._stmt.filter(*filters)
 
-    async def _apply_search(self, search):
+    async def _apply_search(self, search: str) -> None:
         pass
 
     async def _load_opts(self):
