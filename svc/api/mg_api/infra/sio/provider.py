@@ -10,7 +10,6 @@ from mg_api.infra.sio.sid_registry import SidRegistry
 
 
 class SioProv(Provider):
-
     cur_sid = from_context(provides=CurSid, scope=Scope.SESSION)
 
     @provide(scope=Scope.APP)
@@ -28,13 +27,11 @@ class SioProv(Provider):
         sess_data = await sio.get_session(sid)
         return sess_data["access_token"]
 
-
     connect_ws = provide(ConnectWS, scope=Scope.SESSION)
 
     @provide(scope=Scope.SESSION, provides=IConnectWS)
-    async def ws_connect_manager(self, conn: ConnectWS) -> AsyncIterator[WSConnectManager]:
+    async def ws_connect_manager(
+        self, conn: ConnectWS
+    ) -> AsyncIterator[WSConnectManager]:
         async with conn as conn:
             yield conn
-
-
-

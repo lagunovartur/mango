@@ -12,15 +12,13 @@ from uuid import UUID
 router = APIRouter(route_class=DishkaRoute, prefix="/chat", tags=["chat"])
 
 
-@router.post(
-    "",
-    response_model=d.Chat
-)
+@router.post("", response_model=d.Chat)
 async def create(
     dto: d.NewChat,
     svc: Depends[ChatSvc],
 ):
     return await svc.create(dto)
+
 
 @router.get(
     "/{chat_id}",
@@ -31,6 +29,7 @@ async def get(
     svc: Depends[ChatSvc],
 ):
     return await svc.get(chat_id)
+
 
 @router.get(
     "",
@@ -62,5 +61,3 @@ async def delete(
     svc: Depends[ChatSvc],
 ):
     return await svc.delete(chat_id)
-
-

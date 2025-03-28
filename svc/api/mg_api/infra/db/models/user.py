@@ -19,7 +19,9 @@ class User(Base, UuidPk, Timestamp):
     password: Mapped[str] = mapped_column(String(60), nullable=True)
     email: Mapped[str] = mapped_column(String(255), unique=True, nullable=False)
     phone: Mapped[str] = mapped_column(String(11), unique=True, nullable=False)
-    chats: Mapped[List["Chat"]] = relationship("Chat", secondary=user_chat, back_populates="users")
+    chats: Mapped[List["Chat"]] = relationship(
+        "Chat", secondary=user_chat, back_populates="users"
+    )
     messages: Mapped[List["Message"]] = relationship(
         back_populates="sender", lazy="noload"
     )

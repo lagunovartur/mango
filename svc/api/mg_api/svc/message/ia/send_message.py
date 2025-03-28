@@ -12,7 +12,6 @@ from mg_api.svc.message.service import MessageSvc
 
 @define
 class SendMessageIA:
-
     _sio: AsyncServer
     _crud: MessageSvc
     _sid_registry: SidRegistry
@@ -20,7 +19,9 @@ class SendMessageIA:
 
     async def __call__(self, dto: NewMessage) -> None:
         message = await self._crud.create(dto)
-        chat = await self._chat_repo.get(dto.chat_id, (orm.selectinload(self._chat_repo.model.users),))
+        chat = await self._chat_repo.get(
+            dto.chat_id, (orm.selectinload(self._chat_repo.model.users),)
+        )
 
         sids = (
             sid
@@ -30,13 +31,11 @@ class SendMessageIA:
         )
 
         async with TaskGroup() as tg:
-            tasks = [
-                tg.create_task(self._send_message(sid, message)) for sid in sids
-            ]
+            tasks = [tg.create_task(self._send_message(sid, message)) for sid in sids]
 
     async def _send_message(self, sid: str, message: Message) -> None:
         try:
-            await self._sio.emit('srv_new_message', message.model_dump(), to=sid)
+            await self._sio.emit("srv_new_message", message.model_dump(), to=sid)
             print(f"Message sent to {sid}")
         except Exception as e:
             print(f"Failed to send message to {sid}: {e}")

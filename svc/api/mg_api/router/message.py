@@ -21,6 +21,3 @@ async def list(
     svc: Depends[MessageList],
 ):
     return await svc(params)
-
-
-

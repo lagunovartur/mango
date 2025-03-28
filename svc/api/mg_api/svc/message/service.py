@@ -14,9 +14,9 @@ from mg_api.utils.crud.types_ import C, U
 class MessageList(ListSvc[d.Message, m.Message, MessageLP]):
     pass
 
+
 @define
 class MessageSvc(CrudSvc[d.NewMessage, d.Message, None, r.Message, MessageList]):
-
     _token: AccessTokenWS
     _db_sess: AsyncSession
     _repo: r.Message
@@ -24,5 +24,3 @@ class MessageSvc(CrudSvc[d.NewMessage, d.Message, None, r.Message, MessageList])
 
     async def _before_flush(self, obj, dto: C | U, cur_obj=None) -> None:
         obj.sender_id = self._token.payload.sub
-
-

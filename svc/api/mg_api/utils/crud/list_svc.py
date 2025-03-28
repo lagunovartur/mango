@@ -23,14 +23,13 @@ class ListSvc(IListSvc, Generic[R, M, LP]):
         self._R, self._M, self._LP = self.__orig_bases__[0].__args__
 
     async def __call__(self, params: LP) -> ListSlice[R]:
-
         await self._set_stmt()
 
         await self._apply_load_opts()
 
         params = params.model_dump(exclude_none=True)
-        search = params.pop('search', None)
-        pagination = PageParams(limit=params.pop('limit'), offset=params.pop('offset'))
+        search = params.pop("search", None)
+        pagination = PageParams(limit=params.pop("limit"), offset=params.pop("offset"))
 
         if search:
             await self._apply_search(search)
@@ -43,7 +42,9 @@ class ListSvc(IListSvc, Generic[R, M, LP]):
 
         items = await self._execute()
 
-        return ListSlice[self._R](items=items, total=count, limit=pagination.limit, offset=pagination.offset)
+        return ListSlice[self._R](
+            items=items, total=count, limit=pagination.limit, offset=pagination.offset
+        )
 
     async def _set_stmt(self) -> None:
         self._stmt = sa.select(self._M)

@@ -87,6 +87,7 @@ mg al-down
 ```shell
 mg chk-test
 ```
+
 ### Mypy
 ```shell
 mg chk-mypy
@@ -97,22 +98,11 @@ mg chk-style
 ```
 
 ## Форматирование
-Форматирование ruff, black, isort
+Форматирование ruff
 ```shell
 mg fmt
 ```
-Форматирование ruff
-```shell
-mg fmt-ruff
-```
-Форматирование black
-```shell
-mg fmt-black
-```
-Форматирование isort
-```shell
-mg fmt-isort
-```
+
 ## База
 ### Подключение к базе в контейнере по psql
 ```shell

@@ -22,10 +22,10 @@ RP = TypeVar("RP", bound=Repo)
 LP = TypeVar("LP", bound=BaseLP)
 
 D = TypeVar("D", bound=BaseModel)
+
+
 class ListSlice(BaseModel, Generic[D]):
     items: Sequence[D]
     limit: int
     offset: int
     total: int
-
-

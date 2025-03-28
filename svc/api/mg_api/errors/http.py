@@ -4,6 +4,7 @@ from fastapi import Request
 from fastapi.responses import JSONResponse
 from typing import cast
 
+
 class JsonExample(dict):
     def __init__(self, cls: Type):
         super().__init__()
@@ -90,4 +91,3 @@ def http_handler(request: Request, exc: Exception) -> JSONResponse:
         content=exc.payload,
         headers=exc.headers,
     )
-

@@ -8,6 +8,7 @@ from mg_api.utils.crud.crud_abc import ICrudSvc
 from mg_api.utils.crud.types_ import C, R, U, RP, ListSlice
 from mg_api.utils.crud.list_svc import LS
 
+
 @define
 class CrudSvc(ICrudSvc, Generic[C, R, U, RP, LS]):
     _db_sess: AsyncSession

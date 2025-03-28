@@ -8,8 +8,7 @@ from mg_api.utils.crud.types_ import R, M, LP, ListSlice, PageParams
 
 
 @define
-class IListSvc(ABC,Generic[R, M, LP]):
-
+class IListSvc(ABC, Generic[R, M, LP]):
     _stmt: Select = field(init=False)
 
     @abstractmethod
@@ -47,5 +46,3 @@ class IListSvc(ABC,Generic[R, M, LP]):
     @abstractmethod
     async def _paginate(self, pagination: PageParams) -> None:
         pass
-
-

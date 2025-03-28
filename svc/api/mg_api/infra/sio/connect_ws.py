@@ -8,16 +8,16 @@ from typing import NewType, Any
 
 
 class IConnectWS:
-
     @abstractmethod
     async def __call__(self, cookie: str, sid: str) -> bool:
         pass
 
+
 WSConnectManager = NewType("WSConnectManager", Any)
+
 
 @define
 class ConnectWS(IConnectWS):
-
     _sid_registry: SidRegistry
     _sio: AsyncServer
     _jwt_svc: IJwtSvc
@@ -41,14 +41,14 @@ class ConnectWS(IConnectWS):
         self._sid = sid
 
         sess_data = await self._sio.get_session(sid)
-        sess_data['access_token'] = access_token
+        sess_data["access_token"] = access_token
         self._sid_registry[access_token.payload.sub] = sid
 
         return True
 
     @staticmethod
     def _parse_cookie(cookie: str) -> dict[str, str]:
-        return dict(map(lambda item: item.split('='), cookie.split(';')))
+        return dict(map(lambda item: item.split("="), cookie.split(";")))
 
     async def __aenter__(self) -> WSConnectManager:
         return self
@@ -56,5 +56,3 @@ class ConnectWS(IConnectWS):
     async def __aexit__(self, exc_type, exc, tb):
         if self._sid:
             self._sid_registry.remove(self._sid)
-
-

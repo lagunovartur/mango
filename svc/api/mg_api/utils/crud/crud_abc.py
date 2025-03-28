@@ -5,7 +5,6 @@ from mg_api.utils.crud.list_svc import LS
 
 
 class ICrudSvc(ABC, Generic[C, R, U, RP, LS]):
-
     @abstractmethod
     async def create(
         self,
@@ -41,5 +40,3 @@ class ICrudSvc(ABC, Generic[C, R, U, RP, LS]):
     @abstractmethod
     async def _before_commit(self, obj, dto, is_new: bool) -> None:
         pass
-
-

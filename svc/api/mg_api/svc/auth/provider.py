@@ -31,8 +31,4 @@ class AuthProv(Provider):
 
     auth_guard = provide(AuthGuard, scope=Scope.APP)
 
-    pd = provide_all(
-        RegisterIA,
-        LoginIA,
-        LogoutIA
-    )
+    pd = provide_all(RegisterIA, LoginIA, LogoutIA)

@@ -15,7 +15,7 @@ class MSG(BaseModel):
 @sio.event
 @inject
 async def connect(sid, environ, connector: Depends[IConnectWS]):
-    return await connector(environ['HTTP_COOKIE'], sid)
+    return await connector(environ["HTTP_COOKIE"], sid)
 
 
 @sio.event

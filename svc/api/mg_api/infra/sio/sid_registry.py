@@ -6,10 +6,10 @@ from attrs import define, field
 
 @define
 class SidRegistry:
-
-    _user_sid: dict[UUID, set[str]] = field(factory=lambda: defaultdict(set), init=False)
+    _user_sid: dict[UUID, set[str]] = field(
+        factory=lambda: defaultdict(set), init=False
+    )
     _sid_user: dict[str, UUID] = field(factory=dict, init=False)
-
 
     def __setitem__(self, user_id: UUID, sid: str) -> None:
         self._user_sid[user_id].add(sid)

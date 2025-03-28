@@ -7,6 +7,7 @@ class BaseChat(BaseModel):
     _model = m.Chat
     name: str
 
+
 class ChatBase(BaseChat):
     id: UUID
 
@@ -17,6 +18,7 @@ class NewChat(BaseChat):
 
 class Chat(ChatBase):
     pass
+
 
 class EditChat(BaseChat):
     id: UUID

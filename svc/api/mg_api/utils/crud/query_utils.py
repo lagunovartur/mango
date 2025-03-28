@@ -9,7 +9,6 @@ from mg_api.utils.crud.types_ import PageParams, ListSlice
 class QueryUtils:
     @staticmethod
     def parse_filters(model, filters: dict):
-
         operators = {
             "gt": operator.gt,
             "lt": operator.lt,

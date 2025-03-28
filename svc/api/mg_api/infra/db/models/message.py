@@ -13,21 +13,12 @@ if TYPE_CHECKING:
 
 
 class Message(Base, UuidPk, CreatedAt):
-
     chat_id: Mapped[UUID] = mapped_column(
         ForeignKey("chat.id", ondelete="CASCADE"), index=True, nullable=False
     )
-    chat: Mapped["Chat"] = relationship(
-        back_populates="messages", lazy="noload"
-    )
+    chat: Mapped["Chat"] = relationship(back_populates="messages", lazy="noload")
     sender_id: Mapped[UUID] = mapped_column(
         ForeignKey("user.id", ondelete="CASCADE"), index=True, nullable=False
     )
-    sender: Mapped["User"] = relationship(
-        back_populates="messages", lazy="noload"
-    )
+    sender: Mapped["User"] = relationship(back_populates="messages", lazy="noload")
     text: Mapped[str] = mapped_column(String(500), nullable=False)
-
-
-
-

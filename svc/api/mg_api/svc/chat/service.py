@@ -17,9 +17,12 @@ class ChatList(ListSvc[d.Chat, m.Chat, BaseLP]):
     _db_sess: AsyncSession
 
     async def _set_stmt(self) -> None:
-        self._stmt = sa.select(self._M).select_from(m.user_chat).where(
-            m.user_chat.c.user_id == self._access_token.payload.sub
-        ).join(m.Chat)
+        self._stmt = (
+            sa.select(self._M)
+            .select_from(m.user_chat)
+            .where(m.user_chat.c.user_id == self._access_token.payload.sub)
+            .join(m.Chat)
+        )
 
 
 class ChatSvc(CrudSvc[d.NewChat, d.Chat, d.EditChat, r.Chat, ChatList]):

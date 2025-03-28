@@ -6,9 +6,7 @@ from sqlalchemy import or_
 
 
 class UserList(ListSvc[d.User, m.User, BaseLP]):
-
     async def _apply_search(self, search: str) -> None:
-
         if search.isdigit():
             self._stmt = self._stmt.filter(self._M.phone.ilike(f"%{search}%"))
 
@@ -17,11 +15,9 @@ class UserList(ListSvc[d.User, m.User, BaseLP]):
                 or_(
                     self._M.first_name.ilike(f"%{search}%"),
                     self._M.last_name.ilike(f"%{search}%"),
-                    self._M.email.ilike(f"%{search}%")
+                    self._M.email.ilike(f"%{search}%"),
                 )
             )
 
         else:
             self._stmt = self._stmt.filter(self._M.email.ilike(f"%{search}%"))
-
-

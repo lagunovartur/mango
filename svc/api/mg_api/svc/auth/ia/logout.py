@@ -9,4 +9,3 @@ class LogoutIA:
 
     async def __call__(self) -> None:
         self._jwt_setter.unset()
-

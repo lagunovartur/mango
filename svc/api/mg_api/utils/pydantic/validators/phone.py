@@ -15,6 +15,7 @@ def is_phone(value: str) -> bool:
     regex = r"^\d{11}$"
     return bool(re.match(regex, value))
 
+
 Phone = Annotated[
     str,
     BeforeValidator(partial(_validator)),

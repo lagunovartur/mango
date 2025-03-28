@@ -13,9 +13,10 @@ if TYPE_CHECKING:
 
 
 class Chat(Base, UuidPk, Timestamp):
-
     name: Mapped[str] = mapped_column(String(50), nullable=False)
-    users: Mapped[List["User"]] = relationship("User", secondary=user_chat, back_populates="chats")
+    users: Mapped[List["User"]] = relationship(
+        "User", secondary=user_chat, back_populates="chats"
+    )
     messages: Mapped[List["Message"]] = relationship(
         back_populates="chat", lazy="noload"
     )

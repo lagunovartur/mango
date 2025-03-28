@@ -20,6 +20,3 @@ async def list(
     svc: Depends[UserList],
 ):
     return await svc(params)
-
-
-

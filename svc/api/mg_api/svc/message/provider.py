@@ -5,7 +5,5 @@ from mg_api.svc.message.service import MessageList, MessageSvc
 
 
 class MessageProv(Provider):
-
     scope = Scope.REQUEST
     pd = provide_all(MessageList, MessageSvc, SendMessageIA)
-
