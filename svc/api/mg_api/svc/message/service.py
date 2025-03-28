@@ -10,9 +10,9 @@ from mg_api.utils.crud.crud_svc import CrudSvc
 from mg_api.utils.crud.list_svc import ListSvc
 from mg_api.utils.crud.types_ import C, U
 
-
+@define
 class MessageList(ListSvc[d.Message, m.Message, MessageLP]):
-    pass
+    _db_sess: AsyncSession
 
 
 @define
