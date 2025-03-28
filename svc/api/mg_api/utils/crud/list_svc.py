@@ -4,6 +4,7 @@ import sqlalchemy as sa
 from attrs import define
 from sqlalchemy import desc
 from sqlalchemy.ext.asyncio import AsyncSession
+from attrs import field
 
 from mg_api.utils.crud.list_abc import IListSvc
 from mg_api.utils.crud.query_utils import QueryUtils
@@ -13,6 +14,10 @@ from mg_api.utils.crud.types_ import R, M, LP, ListSlice, PageParams
 @define
 class ListSvc(IListSvc, Generic[R, M, LP]):
     _db_sess: AsyncSession
+
+    _R = field(init=False)
+    _M = field(init=False)
+    _LP = field(init=False)
 
     def __attrs_post_init__(self):
         self._R, self._M, self._LP = self.__orig_bases__[0].__args__
@@ -60,7 +65,7 @@ class ListSvc(IListSvc, Generic[R, M, LP]):
         pass
 
     async def _apply_load_opts(self) -> None:
-        self._stmt = self._stmt.options(self._R.load_opts()())
+        self._stmt = self._stmt.options(*self._R.load_opts()())
 
     async def _count(self) -> int:
         count_stmt = sa.select(sa.func.count()).select_from(self._stmt.subquery())
