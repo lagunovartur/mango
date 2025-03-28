@@ -39,7 +39,7 @@ export const Chat = ({isLogged}) => {
 
             newSocket.on('srv_new_message', (data) => {
                 console.log(data);
-                setMessages((prevMessages) => [...prevMessages, {...data, type: 'join'}]);
+                setMessages((prevMessages) => [...prevMessages, data]);
             });
 
             // newSocket.on('srv_new_message', (data) => {

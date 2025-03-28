@@ -53,8 +53,7 @@ export const Login = ({setIsLogged, isLogged}) => {
             }
             setIsLogged(false);
 
-            const json = await resp.json();
-            console.log('Logout successful:', isLogged);
+            console.log('Logout successful:');
 
         } catch (error) {
             console.error('Error:', error);
