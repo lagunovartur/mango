@@ -24,6 +24,7 @@ async def connect(sid, environ, connector: Depends[IConnectWS]):
 async def cl_new_message(sid, data: NewMessage, ia: Depends[SendMessageIA]):
     await ia(data)
 
+
 @sio.event
 @inject
 async def cl_read_messages(sid, data: ReadFilter, ia: Depends[ReadMessagesIA]):

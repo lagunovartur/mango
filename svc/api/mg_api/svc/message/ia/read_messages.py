@@ -17,7 +17,8 @@ class ReadMessagesIA:
 
         async with TaskGroup() as tg:
             tasks = [
-                tg.create_task(self._sender(user.id, 'srv_read_messages', dto.model_dump()))
+                tg.create_task(
+                    self._sender(user.id, "srv_read_messages", dto.model_dump())
+                )
                 for user in users
             ]
-

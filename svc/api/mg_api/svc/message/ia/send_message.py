@@ -20,7 +20,8 @@ class SendMessageIA:
 
         async with TaskGroup() as tg:
             tasks = [
-                tg.create_task(self._sender(user.id, 'srv_new_message', message.model_dump()))
+                tg.create_task(
+                    self._sender(user.id, "srv_new_message", message.model_dump())
+                )
                 for user in users
             ]
-

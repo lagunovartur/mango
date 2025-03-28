@@ -21,20 +21,20 @@ class CrudSvc(ICrudSvc, Generic[C, R, U, RP]):
         return self._repo.model
 
     async def create(
-            self,
-            dto: C,
+        self,
+        dto: C,
     ) -> R:
         return await self._upsert(dto)
 
     async def update(
-            self,
-            dto: U,
+        self,
+        dto: U,
     ) -> R:
         return await self._upsert(dto)
 
     async def _upsert(
-            self,
-            dto: C | U,
+        self,
+        dto: C | U,
     ) -> R:
         is_new = not isinstance(dto, self._U)
 
@@ -62,8 +62,8 @@ class CrudSvc(ICrudSvc, Generic[C, R, U, RP]):
         return await self.get(obj.id)
 
     async def get(
-            self,
-            pk: Any,
+        self,
+        pk: Any,
     ) -> R:
         opts = self._R.load_opts()()
         obj = await self._repo.one(id=pk, opts=opts)

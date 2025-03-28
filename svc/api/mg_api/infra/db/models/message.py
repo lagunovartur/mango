@@ -23,4 +23,6 @@ class Message(Base, UuidPk, CreatedAt):
     )
     sender: Mapped["User"] = relationship(back_populates="messages", lazy="noload")
     text: Mapped[str] = mapped_column(String(500), nullable=False)
-    is_read: Mapped[bool] = mapped_column(Boolean, nullable=False, server_default=sa.text('false'))
+    is_read: Mapped[bool] = mapped_column(
+        Boolean, nullable=False, server_default=sa.text("false")
+    )
