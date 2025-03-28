@@ -37,7 +37,7 @@ class IListSvc(ABC,Generic[R, M, LP]):
         pass
 
     @abstractmethod
-    async def _load_opts(self):
+    async def _apply_load_opts(self) -> None:
         pass
 
     @abstractmethod

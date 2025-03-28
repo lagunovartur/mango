@@ -21,6 +21,8 @@ class ListSvc(IListSvc, Generic[R, M, LP]):
 
         await self._set_stmt()
 
+        await self._apply_load_opts()
+
         params = params.model_dump(exclude_none=True)
         search = params.pop('search', None)
         pagination = PageParams(limit=params.pop('limit'), offset=params.pop('offset'))
@@ -39,7 +41,7 @@ class ListSvc(IListSvc, Generic[R, M, LP]):
         return ListSlice[self._R](items=items, total=count, limit=pagination.limit, offset=pagination.offset)
 
     async def _set_stmt(self) -> None:
-        self._stmt = sa.select(self._M).options(*(await self._load_opts()))
+        self._stmt = sa.select(self._M)
 
     async def _execute(self) -> Sequence[M]:
         res = await self._db_sess.execute(self._stmt)
@@ -57,8 +59,8 @@ class ListSvc(IListSvc, Generic[R, M, LP]):
     async def _apply_search(self, search: str) -> None:
         pass
 
-    async def _load_opts(self):
-        return self._R.load_opts()()
+    async def _apply_load_opts(self) -> None:
+        self._stmt = self._stmt.options(self._R.load_opts()())
 
     async def _count(self) -> int:
         count_stmt = sa.select(sa.func.count()).select_from(self._stmt.subquery())
