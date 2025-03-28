@@ -5,7 +5,7 @@ mg -h
 ```
 
 ## Инициализация
-Устанавливает гит хук на пуш, выполняющий test, mypy, ruff, isort, black проверки при коммите.
+Устанавливает гит хук на пуш, выполняющий test, mypy, ruff проверки при коммите.
 
 Делает глобально доступным cli проекта по имени mg.
 ```shell
@@ -17,12 +17,12 @@ sudo ./cli/run in
 sudo ./cli/run in-link
 ```
 
-### Устанавливает гит хук на пуш, выполняющий test, mypy, ruff, isort, black проверки при коммите.
+### Устанавливает гит хук на пуш, выполняющий test, mypy, ruff, black проверки при коммите.
 ```shell
 sudo mg in-hook
 ```
 
-### Cнимает гит хук на пуш, выполняющий test, mypy, ruff, isort, black проверки при коммите.
+### Cнимает гит хук на пуш, выполняющий test, mypy, ruff, black проверки при коммите.
 ```shell
 mg in-unhook
 ```
@@ -92,7 +92,7 @@ mg chk-test
 ```shell
 mg chk-mypy
 ```
-### Линтеры ruff, black, isort
+### Линтеры ruff
 ```shell
 mg chk-style
 ```

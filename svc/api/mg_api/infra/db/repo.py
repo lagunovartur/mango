@@ -76,6 +76,15 @@ class Repo(Generic[Model]):
         result = await self._db_sess.scalar(stmt)
         return result or 0
 
+    async def filter(
+        self, opts: Sequence[ORMOption] | None = None, *filters
+    ) -> Sequence[Model]:
+        opts = opts or []
+        stmt = sa.select(self.model).options(*opts)
+        if filters:
+            stmt = stmt.filter(*filters)
+        return (await self._db_sess.scalars(stmt)).all()
+
     async def filter_by(
         self, opts: Sequence[ORMOption] | None = None, **filters
     ) -> Sequence[Model]:

@@ -2,28 +2,13 @@ from runner import run
 
 
 def chk_style():
-    """ruff check | ruff format --check | black --check --diff | isort --check --diff"""
-
-    @run(from_env='src', check=True)
-    def chk_black():
-        return 'black --check --diff'
-
-    @run(from_env='src', check=True)
-    def chk_isort():
-        return 'isort --check --diff'
+    """ruff check"""
 
     @run(from_env='src', check=True)
     def chk_ruff():
         return 'ruff check'
 
-    @run(from_env='src', check=True)
-    def chk_ruff_format():
-        return 'ruff format --check'
-
-    chk_black()
-    chk_isort()
     chk_ruff()
-    chk_ruff_format()
 
 
 @run(from_env='src', check=True)

@@ -54,8 +54,6 @@ class DbRestore(Command):
             psql -U $POSTGRES_USERNAME -d $POSTGRES_DATABASE < {dump_file}'
         """
 
-
-
     def add_args(self, parser: ArgumentParser) -> None:
         parser.add_argument('dump', help='дамп для восстановления')
 
