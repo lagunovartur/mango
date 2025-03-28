@@ -76,5 +76,3 @@ class ListSvc(IListSvc, Generic[R, M, LP]):
     async def _paginate(self, pagination: PageParams) -> None:
         self._stmt = self._stmt.limit(pagination.limit).offset(pagination.offset)
 
-
-LS = TypeVar("LS", bound=ListSvc)
