@@ -22,7 +22,7 @@ class ICrudSvc(ABC, Generic[C, R, U, RP]):
     @abstractmethod
     async def get(
             self,
-            pk: Any,
+            pk
     ) -> R:
         pass
 
