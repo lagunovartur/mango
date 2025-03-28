@@ -1,24 +1,23 @@
 from attrs import define
+
 import mg_api.repo as r
 from mg_api.dto.message import ReadFilter
-from mg_api.infra.db import models as m
-import sqlalchemy as sa
+from asyncio.taskgroups import TaskGroup
+
+from mg_api.infra.sio.send_event import ISendWsEvent
+
 
 @define
 class ReadMessagesIA:
-
-    _msg_repo: r.Message
+    _user_repo: r.User
+    _sender: ISendWsEvent
 
     async def __call__(self, dto: ReadFilter) -> None:
-        pass
-        model: m.Message = self._msg_repo.model
-        await self._msg_repo.filter(model.chat_id == dto.chat_id, )
+        users = await self._user_repo.get_by_chat(dto.chat_id)
 
-
-
-
-
-
-
-
+        async with TaskGroup() as tg:
+            tasks = [
+                tg.create_task(self._sender(user.id, 'srv_read_messages', dto.model_dump()))
+                for user in users
+            ]
 
