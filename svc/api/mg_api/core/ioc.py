@@ -6,6 +6,7 @@ from mg_api.svc.auth.provider import AuthProv
 from mg_api.svc.chat.provider import ChatProv
 from mg_api.svc.jwt.provider import JwtProv
 from mg_api.svc.message.provider import MessageProv
+from mg_api.svc.user.provider import UserProv
 from mg_api.utils.ioc_builder import IocBuilder
 
 
@@ -19,6 +20,7 @@ def ioc_builder() -> IocBuilder:
         JwtProv(),
         ChatProv(),
         MessageProv(),
+        UserProv(),
     ]
 
     builder = IocBuilder(*providers)
