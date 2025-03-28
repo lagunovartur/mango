@@ -1,42 +1,40 @@
 import copy
 from typing import Any, Generic
 
-from attrs import define, field
+from attrs import define
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from mg_api.utils.crud.crud_abc import ICrudSvc
-from mg_api.utils.crud.types_ import C, R, U, RP, ListSlice
-from mg_api.utils.crud.list_svc import LS
+from mg_api.utils.crud.types_ import C, R, U, RP
 
 
 @define
-class CrudSvc(ICrudSvc, Generic[C, R, U, RP, LS]):
+class CrudSvc(ICrudSvc, Generic[C, R, U, RP]):
     _db_sess: AsyncSession
     _repo: RP
-    _list_svc: LS
 
     def __attrs_post_init__(self):
-        self._C, self._R, self._U, self._RP, self._LS = self.__orig_bases__[0].__args__
+        self._C, self._R, self._U, self._RP = self.__orig_bases__[0].__args__
 
     @property
     def _model(self):
         return self._repo.model
 
     async def create(
-        self,
-        dto: C,
+            self,
+            dto: C,
     ) -> R:
         return await self._upsert(dto)
 
     async def update(
-        self,
-        dto: U,
+            self,
+            dto: U,
     ) -> R:
         return await self._upsert(dto)
 
     async def _upsert(
-        self,
-        dto: C | U,
+            self,
+            dto: C | U,
     ) -> R:
         is_new = not isinstance(dto, self._U)
 
@@ -64,16 +62,13 @@ class CrudSvc(ICrudSvc, Generic[C, R, U, RP, LS]):
         return await self.get(obj.id)
 
     async def get(
-        self,
-        pk: Any,
+            self,
+            pk: Any,
     ) -> R:
         opts = self._R.load_opts()()
         obj = await self._repo.one(id=pk, opts=opts)
         dto = self._R.model_validate(obj)
         return dto
-
-    async def get_list(self, params) -> ListSlice[R]:
-        return await self._list_svc(params)
 
     async def delete(self, pk) -> None:
         await self._repo.delete(pk)

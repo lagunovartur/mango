@@ -25,5 +25,5 @@ class ChatList(ListSvc[d.Chat, m.Chat, BaseLP]):
         )
 
 
-class ChatSvc(CrudSvc[d.NewChat, d.Chat, d.EditChat, r.Chat, ChatList]):
+class ChatSvc(CrudSvc[d.NewChat, d.Chat, d.EditChat, r.Chat]):
     pass

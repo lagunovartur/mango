@@ -5,7 +5,7 @@ from dishka.integrations.fastapi import DishkaRoute
 from fastapi import APIRouter, Query
 
 import mg_api.dto as d
-from mg_api.svc.chat.service import ChatSvc
+from mg_api.svc.chat.service import ChatSvc, ChatList
 from mg_api.utils.crud.types_ import ListSlice, BaseLP
 from uuid import UUID
 
@@ -37,9 +37,9 @@ async def get(
 )
 async def list(
     params: Annotated[BaseLP, Query()],
-    svc: Depends[ChatSvc],
+    svc: Depends[ChatList],
 ):
-    return await svc.get_list(params)
+    return await svc(params)
 
 
 @router.put(

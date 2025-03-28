@@ -1,36 +1,33 @@
 from abc import abstractmethod, ABC
 from typing import Any, Generic
-from mg_api.utils.crud.types_ import C, R, U, RP, LP, ListSlice
-from mg_api.utils.crud.list_svc import LS
+
+from mg_api.utils.crud.types_ import C, R, U, RP
 
 
-class ICrudSvc(ABC, Generic[C, R, U, RP, LS]):
+class ICrudSvc(ABC, Generic[C, R, U, RP]):
     @abstractmethod
     async def create(
-        self,
-        dto: C,
+            self,
+            dto: C,
     ) -> R:
         pass
 
     @abstractmethod
     async def update(
-        self,
-        dto: U,
+            self,
+            dto: U,
     ) -> R:
         pass
 
     @abstractmethod
     async def get(
-        self,
-        pk: Any,
+            self,
+            pk: Any,
     ) -> R:
         pass
 
     @abstractmethod
-    async def get_list(
-        self,
-        params: LP,
-    ) -> ListSlice[R]:
+    async def delete(self, pk) -> None:
         pass
 
     @abstractmethod
