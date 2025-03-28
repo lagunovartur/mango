@@ -1,7 +1,7 @@
 import copy
 from typing import Any, Generic
 
-from attrs import define
+from attrs import define, field
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from mg_api.utils.crud.crud_abc import ICrudSvc
@@ -13,6 +13,12 @@ class CrudSvc(ICrudSvc, Generic[C, R, U, RP, LS]):
     _db_sess: AsyncSession
     _repo: RP
     _list_svc: LS
+
+    _C = field(init=False)
+    _R = field(init=False)
+    _U = field(init=False)
+    _RP = field(init=False)
+    _LS = field(init=False)
 
     def __attrs_post_init__(self):
         self._C, self._R, self._U, self._RP, self._LS = self.__orig_bases__[0].__args__
