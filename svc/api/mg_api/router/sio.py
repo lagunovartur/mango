@@ -1,6 +1,7 @@
 from dishka import FromDishka as Depends
 from pydantic import BaseModel
 
+from mg_api.dto.general import IdIn
 from mg_api.dto.message import NewMessage
 from mg_api.infra.sio.app import sio
 from mg_api.infra.sio.connect_ws import IConnectWS
@@ -22,6 +23,10 @@ async def connect(sid, environ, connector: Depends[IConnectWS]):
 @inject
 async def cl_new_message(sid, data: NewMessage, ia: Depends[SendMessageIA]):
     await ia(data)
+
+@sio.event
+async def cl_read_messages(sid, data: IdIn):
+    pass
 
 
 @sio.event
