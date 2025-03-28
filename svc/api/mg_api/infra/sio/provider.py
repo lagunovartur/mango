@@ -6,7 +6,7 @@ from socketio import ASGIApp
 from mg_api.infra.sio.app import sio, sio_app
 from mg_api.infra.sio.connect_ws import ConnectWS, IConnectWS, WSConnectManager
 from mg_api.infra.sio.di import AsyncServer, CurSid, AccessTokenWS
-from mg_api.infra.sio.send_event import SendEvent, ISendEvent
+from mg_api.infra.sio.send_event import SendWsEvent, ISendWsEvent
 from mg_api.infra.sio.sid_registry import SidRegistry
 
 
@@ -37,4 +37,4 @@ class SioProv(Provider):
         async with conn as conn:
             yield conn
 
-    send_event = provide(SendEvent, scope=Scope.SESSION, provides=ISendEvent)
+    send_event = provide(SendWsEvent, scope=Scope.SESSION, provides=ISendWsEvent)

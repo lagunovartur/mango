@@ -5,7 +5,7 @@ from attrs import define
 
 from mg_api import repo as r
 from mg_api.dto.message import NewMessage
-from mg_api.infra.sio.send_event import ISendEvent
+from mg_api.infra.sio.send_event import ISendWsEvent
 from mg_api.svc.message.service import MessageSvc
 
 
@@ -13,7 +13,7 @@ from mg_api.svc.message.service import MessageSvc
 class SendMessageIA:
     _crud: MessageSvc
     _chat_repo: r.Chat
-    _sender: ISendEvent
+    _sender: ISendWsEvent
 
     async def __call__(self, dto: NewMessage) -> None:
         message = await self._crud.create(dto)

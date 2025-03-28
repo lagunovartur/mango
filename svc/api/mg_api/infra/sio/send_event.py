@@ -7,14 +7,14 @@ from mg_api.infra.sio.di import AsyncServer
 from mg_api.infra.sio.sid_registry import SidRegistry
 
 
-class ISendEvent(ABC):
+class ISendWsEvent(ABC):
 
     @abstractmethod
     async def __call__(self, user_id: UUID, event: str, data: dict) -> dict[str, Exception]:
         pass
 
 @define
-class SendEvent:
+class SendWsEvent:
 
     _sio: AsyncServer
     _sid_registry: SidRegistry
