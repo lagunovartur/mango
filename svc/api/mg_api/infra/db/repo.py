@@ -76,7 +76,7 @@ class Repo(Generic[Model]):
         result = await self._db_sess.scalar(stmt)
         return result or 0
 
-    async def filter(
+    async def filter_by(
         self, opts: Sequence[ORMOption] | None = None, **filters
     ) -> Sequence[Model]:
         opts = opts or []
@@ -86,7 +86,7 @@ class Repo(Generic[Model]):
         return (await self._db_sess.scalars(stmt)).all()
 
     async def all(self, opts: Sequence[ORMOption] | None = None) -> Sequence[Model]:
-        return await self.filter(opts=opts)
+        return await self.filter_by(opts=opts)
 
     # UPDATE
 
