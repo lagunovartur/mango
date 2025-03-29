@@ -28,9 +28,9 @@ class ICrudSvc(ABC, Generic[C, R, U, RP]):
         pass
 
     @abstractmethod
-    async def _before_flush(self, obj, dto, is_new: bool) -> None:
+    async def _before_flush(self, obj, dto: C | U, cur_obj=None) -> None:
         pass
 
     @abstractmethod
-    async def _before_commit(self, obj, dto, is_new: bool) -> None:
+    async def _before_commit(self, obj, dto: C | U, cur_obj=None) -> None:
         pass
