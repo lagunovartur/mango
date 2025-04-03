@@ -14,7 +14,7 @@ from mg_api.errors.handlers import add_exc_handlers
 from mg_api.router import root_router
 from mg_api.svc.auth.guard import AuthGuard
 
-AppContainer = NewType('AppContainer', AsyncContainer)
+AppContainer = NewType("AppContainer", AsyncContainer)
 
 
 class CoreProv(Provider):
@@ -27,7 +27,9 @@ class CoreProv(Provider):
     di_proxy = provide(DiProxy, scope=Scope.APP)
 
     @provide(scope=Scope.APP)
-    async def api(self, config: ApiConfig, guard: AuthGuard, di_proxy: DiProxy) -> FastAPI:
+    async def api(
+        self, config: ApiConfig, guard: AuthGuard, di_proxy: DiProxy
+    ) -> FastAPI:
         app = FastAPI(
             title=config.TITLE,
             debug=config.DEBUG,
@@ -36,7 +38,7 @@ class CoreProv(Provider):
                 Depends(di_proxy),
                 Depends(guard),
             ],
-            lifespan=lifespan
+            lifespan=lifespan,
         )
 
         add_middleware(app)

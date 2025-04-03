@@ -17,7 +17,6 @@ class AuthGuard:
     _jwt: IJwtSvc
 
     def __call__(self, request: Request) -> None:
-
         access_token = None
         protected_path = self._is_protected(request.url.path)
 
