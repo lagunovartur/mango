@@ -4,7 +4,7 @@ from typing import Generic, Sequence
 from attrs import define, field
 from sqlalchemy.sql.selectable import Select
 
-from mg_api.utils.crud.types_ import R, M, LP, ListSlice, PageParams
+from mg_api.svc.crud.types_ import R, M, LP, ListSlice, PageParams
 
 
 @define

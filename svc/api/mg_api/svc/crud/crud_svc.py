@@ -4,8 +4,8 @@ from typing import Any, Generic
 from attrs import define
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from mg_api.utils.crud.crud_abc import ICrudSvc
-from mg_api.utils.crud.types_ import C, R, U, RP
+from mg_api.svc.crud.crud_abc import ICrudSvc
+from mg_api.svc.crud.types_ import C, R, U, RP
 
 
 @define

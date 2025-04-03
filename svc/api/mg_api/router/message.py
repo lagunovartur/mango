@@ -7,7 +7,7 @@ from fastapi import APIRouter, Query
 import mg_api.dto as d
 from mg_api.dto.message import MessageLP
 from mg_api.svc.message.service import MessageList
-from mg_api.utils.crud.types_ import ListSlice
+from mg_api.svc.crud.types_ import ListSlice
 
 router = APIRouter(route_class=DishkaRoute, prefix="/message", tags=["message"])
 

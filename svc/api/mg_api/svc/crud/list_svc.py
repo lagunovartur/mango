@@ -1,4 +1,4 @@
-from typing import Generic, TypeVar, Sequence
+from typing import Generic, Sequence
 
 import sqlalchemy as sa
 from attrs import define
@@ -6,9 +6,9 @@ from sqlalchemy import desc
 from sqlalchemy.ext.asyncio import AsyncSession
 from attrs import field
 
-from mg_api.utils.crud.list_abc import IListSvc
-from mg_api.utils.crud.query_utils import QueryUtils
-from mg_api.utils.crud.types_ import R, M, LP, ListSlice, PageParams
+from mg_api.svc.crud.list_abc import IListSvc
+from mg_api.svc.crud.query_utils import QueryUtils
+from mg_api.svc.crud.types_ import R, M, LP, ListSlice, PageParams
 
 
 @define

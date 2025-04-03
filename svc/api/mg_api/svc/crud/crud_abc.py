@@ -1,7 +1,7 @@
 from abc import abstractmethod, ABC
-from typing import Any, Generic
+from typing import Generic
 
-from mg_api.utils.crud.types_ import C, R, U, RP
+from mg_api.svc.crud.types_ import C, R, U, RP
 
 
 class ICrudSvc(ABC, Generic[C, R, U, RP]):

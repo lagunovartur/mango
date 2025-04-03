@@ -6,7 +6,7 @@ from fastapi import APIRouter, Query
 
 import mg_api.dto as d
 from mg_api.svc.chat.service import ChatSvc, ChatList
-from mg_api.utils.crud.types_ import ListSlice, BaseLP
+from mg_api.svc.crud.types_ import ListSlice, BaseLP
 from uuid import UUID
 
 router = APIRouter(route_class=DishkaRoute, prefix="/chat", tags=["chat"])

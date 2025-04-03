@@ -6,9 +6,9 @@ import mg_api.infra.db.models as m
 import mg_api.repo as r
 from mg_api.dto.message import MessageLP
 from mg_api.infra.sio.di import AccessTokenWS
-from mg_api.utils.crud.crud_svc import CrudSvc
-from mg_api.utils.crud.list_svc import ListSvc
-from mg_api.utils.crud.types_ import C, U
+from mg_api.svc.crud.crud_svc import CrudSvc
+from mg_api.svc.crud.list_svc import ListSvc
+from mg_api.svc.crud.types_ import C, U
 
 
 @define

@@ -6,7 +6,7 @@ from fastapi import APIRouter, Query
 
 import mg_api.dto as d
 from mg_api.svc.user.service import UserList
-from mg_api.utils.crud.types_ import ListSlice, BaseLP
+from mg_api.svc.crud.types_ import ListSlice, BaseLP
 
 router = APIRouter(route_class=DishkaRoute, prefix="/user", tags=["user"])
 

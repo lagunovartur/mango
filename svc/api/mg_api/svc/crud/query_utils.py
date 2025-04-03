@@ -3,7 +3,7 @@ import operator
 import sqlalchemy as sa
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from mg_api.utils.crud.types_ import PageParams, ListSlice
+from mg_api.svc.crud.types_ import PageParams, ListSlice
 
 
 class QueryUtils:
