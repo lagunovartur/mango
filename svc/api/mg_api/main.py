@@ -2,7 +2,7 @@ import asyncio
 
 from fastapi import FastAPI
 from uvicorn import Server
-from dishka.integrations.fastapi import setup_dishka as setup_dishka
+from dishka.integrations.fastapi import setup_dishka
 
 from mg_api.core.ioc import ioc_builder
 
