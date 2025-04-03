@@ -1,3 +1,6 @@
+[cmd]
+cli = 'mg'
+
 [path]
 compose = 'svc/docker-compose.yml'
 db_dump = '/bitnami/postgresql/dumps'

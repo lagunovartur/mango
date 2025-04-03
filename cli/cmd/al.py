@@ -1,4 +1,4 @@
-from abs import Command
+from abstract import Command
 from runner import run
 from argparse import ArgumentParser, Namespace
 
