@@ -8,7 +8,7 @@ import mg_api.dto as d
 import mg_api.repo as r
 import mg_api.infra.db.models as m
 from mg_api.svc.crud.list_svc import ListSvc
-from mg_api.svc.crud.types_ import BaseLP
+from mg_api.svc.crud.types_ import BaseLP, C, U
 
 
 @define
@@ -24,6 +24,16 @@ class ChatList(ListSvc[d.Chat, m.Chat, BaseLP]):
             .join(m.Chat)
         )
 
-
+@define
 class ChatSvc(CrudSvc[d.NewChat, d.Chat, d.EditChat, r.Chat]):
-    pass
+    _db_sess: AsyncSession
+    _repo: r.Chat
+    _cur_user: m.CurrentUser
+
+    async def _before_flush(self, obj: m.Chat, dto: C | U, cur_obj=None) -> None:
+
+        if not cur_obj:
+            obj.users.append(self._cur_user)
+
+
+
