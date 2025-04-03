@@ -7,7 +7,7 @@ from mg_api.router import user
 from . import sio
 
 
-def router_factory():
+def root_router() -> APIRouter:
     router = APIRouter(route_class=DishkaRoute, prefix="/api")
     router.include_router(auth.router)
     router.include_router(chat.router)

@@ -1,7 +1,7 @@
 import re
 
 from attr import define
-from fastapi import Request, Response
+from fastapi import Request
 
 from mg_api.svc.auth.errors import ExcNotAuth
 from mg_api.svc.jwt.abstract import IJwtSvc
@@ -16,8 +16,7 @@ class AuthGuard:
 
     _jwt: IJwtSvc
 
-    def __call__(self, request: Request, response: Response) -> None:
-        request.state.response = response
+    def __call__(self, request: Request) -> None:
 
         access_token = None
         protected_path = self._is_protected(request.url.path)
