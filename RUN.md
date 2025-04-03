@@ -32,3 +32,6 @@ mg cl-run
 
 ### frontend
 https://localhost:3000
+
+### Демонстрация
+https://drive.google.com/file/d/1ViFWyqwPzAHSa4iiLy5PvQCQA737nKn1/view?usp=sharing
