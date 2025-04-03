@@ -1,63 +1,6 @@
-from typing import Annotated
-
-from dishka import FromDishka as Depends
-from dishka.integrations.fastapi import DishkaRoute
-from fastapi import APIRouter, Query
-
-import mg_api.dto as d
 from mg_api.svc.chat.service import ChatSvc, ChatList
-from mg_api.svc.crud.types_ import ListSlice, BaseLP
-from uuid import UUID
+from mg_api.svc.crud.router import crud_router, add_list_route
 
-router = APIRouter(route_class=DishkaRoute, prefix="/chat", tags=["chat"])
+router = crud_router(ChatSvc)
+add_list_route(router, ChatList)
 
-
-@router.post("", response_model=d.Chat)
-async def create(
-    dto: d.NewChat,
-    svc: Depends[ChatSvc],
-):
-    return await svc.create(dto)
-
-
-@router.get(
-    "/{chat_id}",
-    response_model=d.Chat,
-)
-async def get(
-    chat_id: UUID,
-    svc: Depends[ChatSvc],
-):
-    return await svc.get(chat_id)
-
-
-@router.get(
-    "",
-    response_model=ListSlice[d.Chat],
-)
-async def list(
-    params: Annotated[BaseLP, Query()],
-    svc: Depends[ChatList],
-):
-    return await svc(params)
-
-
-@router.put(
-    "",
-    response_model=d.Chat,
-)
-async def update(
-    dto: d.EditChat,
-    svc: Depends[ChatSvc],
-):
-    return await svc.update(dto)
-
-
-@router.delete(
-    "/{chat_id}",
-)
-async def delete(
-    chat_id: UUID,
-    svc: Depends[ChatSvc],
-):
-    return await svc.delete(chat_id)

@@ -4,7 +4,7 @@ from mg_api.utils.pydantic.validators import UUID
 from pydantic import Field
 from .user import UserBase
 from .chat import ChatBase
-from mg_api.svc.crud import BaseLP
+from ..svc.crud.types_ import BaseLP
 
 
 class BaseMessage(BaseModel):
