@@ -1,11 +1,11 @@
 import mg_api.infra.db.models as m
 from mg_api.utils.pydantic.base_model import BaseModel
 from mg_api.utils.pydantic.validators import UUID
-
+from pydantic import Field
 
 class BaseChat(BaseModel):
     _model = m.Chat
-    name: str
+    name: str = Field(examples=['чат 1'])
 
 
 class ChatBase(BaseChat):
@@ -13,7 +13,7 @@ class ChatBase(BaseChat):
 
 
 class NewChat(BaseChat):
-    pass
+    id: UUID | None = Field(examples=['27a1f785-dab0-4a9d-828b-9e0762224119'])
 
 
 class Chat(ChatBase):
