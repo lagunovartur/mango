@@ -3,7 +3,7 @@
 sudo ./cli/run in-link
 ```
 
-### Запуск проекта
+### Запуск backend
 ```shell
 mg dc up -d
 ```
@@ -13,6 +13,8 @@ mg dc up -d
 mg al-up
 ```
 
+
+
 ### Стоп проекта
 ```shell
 mg dc down
@@ -20,3 +22,13 @@ mg dc down
 
 ### swagger
 https://localhost:42701/docs
+
+
+
+### Запуск frontend
+```shell
+mg cl-run
+```
+
+### frontend
+https://localhost:3000

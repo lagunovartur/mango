@@ -37,6 +37,7 @@ def run(
     execute = False,
     check: bool = False,
     capture_output: bool = False,
+    cwd: str = '.',
 ):
 
 
@@ -60,7 +61,7 @@ def run(
                         cmd,
                         check=check,
                         shell=True,
-                        cwd='.',
+                        cwd=cwd,
                         capture_output=capture_output,
                         text=True
                     )

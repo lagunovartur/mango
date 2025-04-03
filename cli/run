@@ -2,6 +2,7 @@
 import os
 import sys
 
+from cmd.cl import cl_run
 from cmd.al import al, al_rev, al_up, al_down
 from cmd.chk import chk_style, chk_mypy, chk, chk_test
 from cmd.db import db_dump, db_restore, db_shell
@@ -42,6 +43,8 @@ def main():
     manager['db-shell'] = db_shell
     manager['db-dump'] = db_dump
     manager['db-restore'] = db_restore
+
+    manager['cl-run'] = cl_run
 
     manager['in'] = init
     manager['in-link'] = in_link
